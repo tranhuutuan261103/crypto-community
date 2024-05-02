@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/reset.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/post/detail.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>{% block title %}Post detail{% endblock %}</title>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <div class="sidebar__header">
+                <i class="fa-brands fa-bitcoin logo"></i>
+                <h1 class="sidebar__title">Crypto Community</h1>
+            </div>
+            <ul class="sidebar__list">
+                <li class="sidebar__item sidebar__item--active">
+                    <a href="/post">
+                        <i class="fa-solid fa-rss"></i>
+                        Feed
+                    </a>
+                </li>
+                <li class="sidebar__item">
+                    <a href="/article">
+                        <i class="fa-regular fa-file-lines"></i>
+                        Articles
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="post-main">
+            <div class="back-container">
+                <a href="/post" class="back">
+                    <i class="fa-solid fa-arrow-left-long"></i>
+                Post detail</a>
+                <div class="separate post-top__separate"></div>
+            </div>
+            <div class="post">
+                <div class="post__header">
+                    <img class="post__avatar" src="{{ post.posted_by.avatar }}" alt="user">
+                    <div class="post__info">
+                        <div class="post__name
+                        ">{{ post.posted_by.name }}</div>
+                        <div class="post__time
+                        ">{{ post.created_at }}</div>
+                    </div>
+                </div>
+                <div class="post__content">{{ post.content }}</div>
+                {% if post.thumbnail %}
+                    <img class="post__thumbnail" src="{{ post.thumbnail }}" alt="thumbnail">
+                {% endif %}
+                <div class="post__footer">
+                    <div class="post__view">
+                        <i class="fa-regular fa-eye"></i>
+                        <span class="post-footer__span">{{ post.eye }}</span>
+                    </div>
+                    <div id="post-{{ post.id }}__like" class="post__like {% if post.liked_by_me %}post__liked{% endif %}" 
+                        onclick="likePost('{{ post.id }}')"
+                    >
+                        <i class="fa-regular fa-heart"></i>
+                        <span
+                            id="post-{{ post.id }}__like--value"
+                            class="post-footer__span"
+                        >
+                            {% if post.liked_by | length == 0 %}
+                                0
+                            {% else %}
+                                {{ post.liked_by | length }}
+                            {% endif %}
+                        </span>
+                    </div>
+                    <div class="post__comment">
+                        <i class="fa-regular fa-comment"></i>
+                        <span class="post-footer__span">0</span>
+                    </div>
+                </div>
+                <div class="separate post-top__separate"></div>
+            </div>
+        </div>
+        <div class="right">
+            <div id="trending-token" class="trending-token"></div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="{{ url_for('static',filename='scripts/post/index.js') }}"></script>
+</body>
+</html>

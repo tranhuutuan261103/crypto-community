@@ -1,11 +1,13 @@
 import os
 
 from flask import Flask
+from flask_cors import CORS
 from .db_config.firebase import default_app
 
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
+    CORS(app, supports_credentials=True, resources={r"/*": {"origins": "*"}})
     app.config.from_mapping(
         SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
@@ -27,6 +29,7 @@ def create_app(test_config=None):
     from .controller.hello import hello
     from .controller.auth import auth
     from .controller.post import post
+    CORS(post)
 
     app.register_blueprint(hello, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/auth')
