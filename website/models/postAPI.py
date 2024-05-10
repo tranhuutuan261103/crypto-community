@@ -29,6 +29,7 @@ def get_posts():
                 post['liked_by_me'] = True
             else:
                 post['liked_by_me'] = False
+
         return all_posts
     except Exception as e:
         return str(e)

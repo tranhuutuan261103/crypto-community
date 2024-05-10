@@ -2,6 +2,9 @@ import sys
 sys.path.append('./website')
 from website.models.postAPI import get_posts, get_sorted_posts, get_post, like_post, create_post
 from flask import Blueprint, render_template, request, jsonify
+from flask_uploads import UploadSet, IMAGES
+# Khởi tạo Flask-Uploads
+photos = UploadSet('photos', IMAGES)
 
 from requests import Request, Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
@@ -33,7 +36,14 @@ def like():
 
 @post.route('/create', methods=['POST'])
 def create():
-    post = request.json.get('post')  # Correct method to access JSON data
+    # Lấy dữ liệu post từ request JSON
+    post = request.form.to_dict()
+
+    # Tải ảnh lên nếu có
+    if 'thumbnail' in request.files:
+        filename = photos.save(request.files['thumbnail'])
+
+    post['thumbnail'] = filename
     post['liked_by'] = []
     post['posted_by'] ={
         'name': 'name',
@@ -44,7 +54,7 @@ def create():
     print(post)
     try:
         response = create_post(post)
-        return jsonify(response), 200  # Ensure you return a JSON response
+        return jsonify(response), 200  # Đảm bảo bạn trả về một phản hồi JSON
     except Exception as e:
         return jsonify({'error': str(e)}), 500
     

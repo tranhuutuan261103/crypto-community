@@ -2,7 +2,11 @@ import os
 
 from flask import Flask
 from flask_cors import CORS
+from flask_uploads import configure_uploads, UploadSet, IMAGES
 from .db_config.firebase import default_app
+
+# Khởi tạo Flask-Uploads
+photos = UploadSet('photos', IMAGES)
 
 def create_app(test_config=None):
     # create and configure the app
@@ -12,6 +16,9 @@ def create_app(test_config=None):
         SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
     )
+
+    app.config['UPLOADED_PHOTOS_DEST'] = 'photos'
+    configure_uploads(app, photos)
 
     if test_config is None:
         # load the instance config, if it exists, when not testing

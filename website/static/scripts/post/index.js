@@ -88,31 +88,27 @@ const previewThumbnail = (input) => {
 }
 
 const createPost = async () => {
-    const content = $('#content').val();
-    //const thumbnail = $('#thumbnail')[0].files[0];
-    const params = {
-        content: content,
-        //thumbnail: thumbnail
-    };
-    try {
-        const response = await fetch('http://127.0.0.1:5000/post/create', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({post: params})
-        });
-        if (!response.ok) {
-            throw new Error('Server responded with an error!');
+    var formData = new FormData();
+    formData.append('content', $('#content').val());
+    formData.append('thumbnail', $('#thumbnail')[0].files[0]);
+
+    console.log(formData);
+    
+    $.ajax({
+        url: 'http://127.0.0.1:5000/post/create',
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(data){
+            if (data === true){
+                window.location.href = '/post';
+            } else {
+                console.log('Error');
+            }
+        },
+        error: function(error){
+            console.error('Error:', error);
         }
-        const data = await response.json();
-        if (data === true){
-            window.location.href = '/';
-        } else {
-            console.log('Error');
-        }
-    }
-    catch (error) {
-        console.error('Error:', error);
-    }
+    });
 }
