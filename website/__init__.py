@@ -3,7 +3,6 @@ import os
 from flask import Flask
 from flask_cors import CORS
 from flask_uploads import configure_uploads, UploadSet, IMAGES
-from .db_config.firebase import default_app
 
 # Khởi tạo Flask-Uploads
 photos = UploadSet('photos', IMAGES)
@@ -34,12 +33,12 @@ def create_app(test_config=None):
         pass
 
     from .controller.hello import hello
-    from .controller.auth import auth
-    from .controller.post import post
-    CORS(post)
+    from .controller.auth import bp as auth_bp
+    from .controller.posts import bp as posts_bp
+    CORS(posts_bp)
 
     app.register_blueprint(hello, url_prefix='/')
-    app.register_blueprint(auth, url_prefix='/auth')
-    app.register_blueprint(post, url_prefix='/post')
+    app.register_blueprint(auth_bp, url_prefix='/auth')
+    app.register_blueprint(posts_bp, url_prefix='/post')
 
     return app
