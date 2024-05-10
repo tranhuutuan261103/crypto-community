@@ -1,11 +1,9 @@
-import sys
-sys.path.append('./website')
-from website.models.userAPI import register as registerUser
-from flask import Blueprint, render_template, request
+from flask import render_template, request
+from website.models.user import register as registerUser
 
-auth = Blueprint('auth', __name__)
+from website.controller.auth import bp
 
-@auth.route('/register', methods=['GET', 'POST'])
+@bp.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         try: 

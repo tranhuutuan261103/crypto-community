@@ -1,30 +1,27 @@
-import sys
-sys.path.append('./website')
-from website.models.postAPI import get_posts, get_sorted_posts, get_post, like_post, create_post
-from flask import Blueprint, render_template, request, jsonify
+from flask import render_template, request, jsonify
 from flask_uploads import UploadSet, IMAGES
 # Khởi tạo Flask-Uploads
 photos = UploadSet('photos', IMAGES)
-
+from website.models.post import get_posts, get_sorted_posts, get_post, like_post, create_post
 from requests import Request, Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 import json
 import datetime
 
-post = Blueprint('post', __name__)
+from website.controller.posts import bp
 
-@post.route('/')
+@bp.route('/')
 def index():
     posts = get_sorted_posts("b9JzFIcDQtXurNFI8wyD", 10)
     return render_template('post/index.html', posts=posts)
 
-@post.route('/<string:post_id>')
+@bp.route('/<string:post_id>')
 def detail(post_id):
     post = get_post(post_id)
     return render_template('post/detail.html', post=post)
 
 
-@post.route('/like', methods=['POST'])
+@bp.route('/like', methods=['POST'])
 def like():
     post_id = request.json.get('post_id')  # Correct method to access JSON data
     print(post_id)
@@ -34,7 +31,7 @@ def like():
     except Exception as e:
         return jsonify({'error': str(e)}), 500  # Provide error message in response
 
-@post.route('/create', methods=['POST'])
+@bp.route('/create', methods=['POST'])
 def create():
     # Lấy dữ liệu post từ request JSON
     post = request.form.to_dict()
@@ -58,7 +55,7 @@ def create():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
     
-@post.route('/cryptocurrency')
+@bp.route('/cryptocurrency')
 def cryptocurrency():
     url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/map'
     parameters = {
