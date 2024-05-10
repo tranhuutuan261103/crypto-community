@@ -1,5 +1,3 @@
-import sys
-sys.path.append('./website')
 from website.db_config.firebase import db
 from google.cloud import firestore
 
@@ -47,11 +45,13 @@ def get_sorted_posts(post_id_start, limit):
             post_data = post.to_dict()
             post_data['id'] = post.id
             all_posts.append(post_data)
+
         for post in all_posts:
             if 'user_id' in post['liked_by']:
                 post['liked_by_me'] = True
             else:
                 post['liked_by_me'] = False
+
         return all_posts
     except Exception as e:
         return str(e)

@@ -44,7 +44,11 @@
             </div>
             <div class="post">
                 <div class="post__header">
-                    <img class="post__avatar" src="{{ post.posted_by.avatar }}" alt="user">
+                    {% if post.posted_by.avatar %}
+                        <img class="post__avatar" src="{{ post.posted_by.avatar }}" alt="avatar">
+                    {% else %}
+                        <img class="post__avatar" src="https://www.gravatar.com/avatar/" alt="avatar">
+                    {% endif %}
                     <div class="post__info">
                         <div class="post__name
                         ">{{ post.posted_by.name }}</div>
