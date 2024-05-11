@@ -1,14 +1,38 @@
-from website.db_config.firebase import db
+from website.db_config.firebase import db, bucket
 from google.cloud import firestore
+import time as Time
+from flask_uploads import UploadSet, IMAGES
+# Khởi tạo Flask-Uploads
+photos = UploadSet('photos', IMAGES)
 
 post_ref = db.collection('posts')
 
-def create_post(post):
+def create_post(post, thumbnail):
     try:
+        if thumbnail is not None:
+            thumbnail_saved = save_image(thumbnail)
+            if thumbnail_saved is not None:
+                post['thumbnail'] = thumbnail_saved
+                
         post_ref.add(post)
         return True
     except Exception as e:
         return str(e)
+    
+def save_image(thumbnail):
+    try:
+        # Upload image to Firebase Storage
+        content_type = thumbnail.content_type
+
+        image_url = f"thumbnails in post/{Time.time()}_{thumbnail.filename}"
+        blob = bucket.blob(image_url)
+        blob.upload_from_file(thumbnail, content_type=content_type)
+        blob.make_public()
+
+        return blob.public_url
+    except Exception as e:
+        print(e)
+        return None
     
 def get_posts():
     try:

@@ -88,11 +88,22 @@ const previewThumbnail = (input) => {
 }
 
 const createPost = async () => {
+    if ($('#content').val() === ''){
+        alert('Content is required!');
+        return;
+    }
+    if ($("#post-creation-btn").hasClass('post-creation-on-upload')){
+        return;
+    }
+    $("#post-creation-btn").addClass('post-creation-on-upload');
+    $("#post-creation-btn").text('Posting...');
+    
     var formData = new FormData();
     formData.append('content', $('#content').val());
-    formData.append('thumbnail', $('#thumbnail')[0].files[0]);
-
-    console.log(formData);
+    
+    if ($('#thumbnail').val() !== ''){
+        formData.append('thumbnail', $('#thumbnail')[0].files[0]);
+    }
     
     $.ajax({
         url: 'http://127.0.0.1:5000/post/create',
@@ -104,11 +115,15 @@ const createPost = async () => {
             if (data === true){
                 window.location.href = '/post';
             } else {
-                console.log('Error');
+                $("#post-creation-btn").removeClass('post-creation-on-upload');
+                $("#post-creation-btn").text('Post');
+                console.error("Can't create post: ", data);
             }
         },
         error: function(error){
-            console.error('Error:', error);
+            $("#post-creation-btn").removeClass('post-creation-on-upload');
+            $("#post-creation-btn").text('Post');
+            console.error("Can't create post: ", error);
         }
     });
 }

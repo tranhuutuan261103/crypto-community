@@ -38,9 +38,10 @@ def create():
 
     # Tải ảnh lên nếu có
     if 'thumbnail' in request.files:
-        filename = photos.save(request.files['thumbnail'])
+        thumbnail = request.files['thumbnail']
+    else:
+        thumbnail = None
 
-    post['thumbnail'] = filename
     post['liked_by'] = []
     post['posted_by'] ={
         'name': 'name',
@@ -48,9 +49,10 @@ def create():
     }
     post['created_at'] = datetime.datetime.now()
     post['eye'] = 0
-    print(post)
+
     try:
-        response = create_post(post)
+        response = create_post(post, thumbnail)
+        print("response", response)
         return jsonify(response), 200  # Đảm bảo bạn trả về một phản hồi JSON
     except Exception as e:
         return jsonify({'error': str(e)}), 500
