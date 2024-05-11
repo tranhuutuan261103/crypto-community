@@ -35,12 +35,14 @@ def create_app(test_config=None):
     from .controller.hello import hello
     from .controller.auth import bp as auth_bp
     from .controller.posts import bp as posts_bp
+    from .controller.comments import bp as comments_bp
     from .controller.articles import bp as articles_bp
     CORS(posts_bp)
 
     app.register_blueprint(hello, url_prefix='/')
     app.register_blueprint(auth_bp, url_prefix='/auth')
     app.register_blueprint(posts_bp, url_prefix='/post')
+    app.register_blueprint(comments_bp, url_prefix='/comments')
     app.register_blueprint(articles_bp, url_prefix='/articles')
 
     return app

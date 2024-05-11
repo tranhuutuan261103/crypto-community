@@ -11,9 +11,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>{% block title %}Post detail{% endblock %}</title>
+    <title>{% block title %}{{ post.content }}{% endblock %}</title>
 </head>
-<body>
+<body
+    onload="loadComments('{{ post.id }}')"
+>
     <div class="container">
         <div class="sidebar">
             <div class="sidebar__header">
@@ -87,6 +89,21 @@
                 </div>
                 <div class="separate post-top__separate"></div>
             </div>
+            <div class="comment-creation">
+                <div class="comment-left">
+                    <img class="comment__avatar" src="{{ url_for('static',filename='images/user.png') }}" alt="avatar">
+                </div>
+                <div class="comment__input">
+                    <textarea id="comment-input" class="comment__input--text" placeholder="Write a comment..."></textarea>
+                    <div class="button comment__input--button" onclick="commentPost('{{ post.id }}')">Comment</div>
+                </div>
+            </div>
+            
+            <div class="separate post-top__separate"></div>
+            <div class="comment-container">
+                <div class="comment__title">Comments</div>
+                <div class="comment__list" id="comments"></div>
+            </div>
         </div>
         <div class="right">
             <div id="trending-token" class="trending-token"></div>
@@ -94,6 +111,6 @@
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="{{ url_for('static',filename='scripts/post/index.js') }}"></script>
+    <script src="{{ url_for('static',filename='scripts/post/detail.js') }}"></script>
 </body>
 </html>

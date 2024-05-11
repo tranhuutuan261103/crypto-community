@@ -1,9 +1,6 @@
 from website.db_config.firebase import db, bucket
 from google.cloud import firestore
 import time as Time
-from flask_uploads import UploadSet, IMAGES
-# Khởi tạo Flask-Uploads
-photos = UploadSet('photos', IMAGES)
 
 post_ref = db.collection('posts')
 
