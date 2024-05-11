@@ -227,6 +227,12 @@ body {
     box-shadow: 0px 0px 2px rgba(128,138,157,.12),0px 0px 24px rgba(128,138,157,.14);
 }
 
+.post-creation-on-upload {
+    background-color: #eff2f5;
+    color: #333;
+    cursor: not-allowed;
+}
+
 .post-top__separate {
     margin: 20px 0;
 }
