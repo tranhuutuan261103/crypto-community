@@ -30,7 +30,7 @@
                     </a>
                 </li>
                 <li class="sidebar__item">
-                    <a href="/article">
+                    <a href="/articles">
                         <i class="fa-regular fa-file-lines"></i>
                         Articles
                     </a>
@@ -82,7 +82,7 @@
                             {% endif %}
                         </span>
                     </div>
-                    <div class="post__comment">
+                    <div class="post__comment" onclick="document.getElementById('comment-input').focus()">
                         <i class="fa-regular fa-comment"></i>
                         <span class="post-footer__span">0</span>
                     </div>
@@ -95,7 +95,7 @@
                 </div>
                 <div class="comment__input">
                     <textarea id="comment-input" class="comment__input--text" placeholder="Write a comment..."></textarea>
-                    <div class="button comment__input--button" onclick="commentPost('{{ post.id }}')">Comment</div>
+                    <button class="button comment__input--button" onclick="addComment('{{ post.id }}')">Comment</button>
                 </div>
             </div>
             
