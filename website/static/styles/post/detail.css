@@ -369,6 +369,10 @@ body {
     color: #486dfb;
 }
 
+.comment__liked {
+    color: #486dfb;
+}
+
 .comment-item__separate {
     margin-top: 20px;
     margin-bottom: 0;
