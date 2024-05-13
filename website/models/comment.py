@@ -25,11 +25,59 @@ def get_comments(post_id):
         print(str(e))
         return []
     
+def get_comment_by_id(comment_id):
+    try:
+        # Fetch a single comment by its ID
+        comment = comments_ref.document(comment_id)
+        comment_data = comment.get().to_dict()
+        comment_data['id'] = comment.id
+
+        if 'liked_by' not in comment_data:
+            comment_data['liked_by'] = []
+        if 'user_id' in comment_data['liked_by']:
+            comment_data['liked_by_me'] = True
+        else:
+            comment_data['liked_by_me'] = False
+
+        return comment_data
+    except Exception as e:
+        return {'error': str(e)}
+    
 def add_comment(post_id, user_id, parent_id, content):
+    try:
+        if parent_id:
+            parent_comment = comments_ref.document(parent_id)
+            parent_comment_data = parent_comment.get().to_dict()
+            post_id = parent_comment_data['post_id'] if parent_id else post_id
+
+        # Add a new comment to the post_id
+        comments_ref.add({
+            'parent_comment_id': parent_id,
+            'post_id': post_id,
+            'commented_by': {
+                'user_id': user_id,
+                'name': 'User Name',
+                'avatar': 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200'
+            },
+            'content': content,
+            'liked_by': [],
+            'created_at': datetime.now()
+        })
+        return True
+    except Exception as e:
+        print(str(e))
+        return False
+    
+def reply_comment(post_id, user_id, parent_id, comment_reply_user_id, content):
     try:
         # Add a new comment to the post_id
         comments_ref.add({
             'parent_comment_id': parent_id,
+            'replying_to': {
+                'user_id': comment_reply_user_id,
+                'name': 'User Name',
+                'avatar': 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200'
+            },
             'post_id': post_id,
             'commented_by': {
                 'user_id': user_id,
