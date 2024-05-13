@@ -10,12 +10,16 @@ const loadComments = async (post_id) => {
                 if (comment.parent_comment_id === null){
                     $('#comments').append(
                         `<div class="comment__item">
-                            <div class="comment__header">
+                            <div class="comment-item__inner">
                                 <img src='${comment.commented_by.avatar}' class="comment__avatar" />
-                                <div class="comment__user">${comment.commented_by.name}</div>
-                                <span class="comment__time">${comment.created_at}</span>
+                                <div>
+                                    <div class="comment__header">
+                                        <div class="comment__user">${comment.commented_by.name}</div>
+                                        <span class="comment__time">${comment.created_at}</span>
+                                    </div>
+                                    <div class="comment__content">${comment.content}</div>
+                                </div>
                             </div>
-                            <div class="comment__content">${comment.content}</div>
                             <div class="comment__footer">
                                 <div id="comment-${comment.id}__like" 
                                     class="comment__like ${comment.liked_by_me === true ? "comment__liked" : ""}" 
@@ -24,7 +28,7 @@ const loadComments = async (post_id) => {
                                     <i class="far fa-thumbs-up"></i>
                                     <span id="comment-${comment.id}__like-value">${comment.liked_by.length}</span>
                                 </div>
-                                <div class="comment__reply" onclick="replyComment(${comment.id})">
+                                <div class="comment__reply" onclick="replyComment('${comment.id}', '${comment.id}')">
                                     <i class="far fa-comment"></i>
                                     <span class="comment-footer__span">Reply</span>
                                 </div>
@@ -40,12 +44,17 @@ const loadComments = async (post_id) => {
                 if (comment.parent_comment_id !== null){
                     $('#comment-' + comment.parent_comment_id).append(
                         `<div class="comment__item">
-                            <div class="comment__header">
+                            <div class="comment-item__inner">
                                 <img src='${comment.commented_by.avatar}' class="comment__avatar" />
-                                <div class="comment__user">${comment.commented_by.name}</div>
-                                <span class="comment__time">${comment.created_at}</span>
+                                <div style="position: relative;">
+                                    <div class="comment__header">
+                                        <div class="comment__user">${comment.commented_by.name}</div>
+                                        <span class="comment__time">${comment.created_at}</span>
+                                    </div>
+                                    ${comment.replying_to !== null ? `<span class="comment__reply-to">Replying to ${comment.replying_to.name}</span>` : ""}
+                                    <div class="comment__content">${comment.content}</div>
+                                </div>
                             </div>
-                            <div class="comment__content">${comment.content}</div>
                             <div class="comment__footer">
                                 <div id="comment-${comment.id}__like" 
                                     class="comment__like ${comment.liked_by_me === true ? "comment__liked" : ""}" 
@@ -54,12 +63,11 @@ const loadComments = async (post_id) => {
                                     <i class="far fa-thumbs-up"></i>
                                     <span id="comment-${comment.id}__like-value">${comment.liked_by.length}</span>
                                 </div>
-                                <div class="comment__reply" onclick="replyComment(${comment.id})">
+                                <div class="comment__reply" onclick="replyComment('${comment.id}', '${comment.parent_comment_id}')">
                                     <i class="far fa-comment"></i>
                                     <span class="comment-footer__span">Reply</span>
                                 </div>
                             </div>
-                            <div class="separate comment-item__separate"></div>
                         </div>`
                     );
                 }
@@ -145,6 +153,59 @@ const likePost = async (p_id) => {
     } catch (error) {
         console.error('Error:', error);
     }
+}
+
+const closeModal = () => {
+    $('#modal-comment').css('display', 'none');
+    $('#modal-comment-reply-user').text('');
+    $('#modal-comment-reply-user-2').text('');
+    $('#modal-comment-reply-avatar').attr('src', '');
+    $('#modal-comment-reply-avatar').attr('alt', '');
+    $('#modal-comment-reply-content').text('');
+    $('#modal-comment-reply-time').text('');
+}
+
+const replyComment = (comment_id, parent_comment_id) => {
+    $.ajax({
+        url: `http://127.0.0.1:5000/comments/${comment_id}`,
+        type: 'GET',
+        contentType: 'application/json',
+        success: function(data) {
+            $('#modal-comment-reply-user').text(data.commented_by.name);
+            $('#modal-comment-reply-user-2').text(data.commented_by.name);
+            $('#modal-comment-reply-avatar').attr('src', data.commented_by.avatar);
+            $('#modal-comment-reply-avatar').attr('alt', data.commented_by.name);
+            $('#modal-comment-reply-content').text(data.content);
+            $('#modal-comment-reply-time').text(data.created_at);
+            $('#modal-comment-reply-btn').attr('onclick', `submitReplyComment('${comment_id}', '${parent_comment_id}')`);
+            $('#modal-comment').css('display', 'flex');
+        },
+        error: function(error) {
+            console.error('Error:', error);
+        }
+    });
+    $('#modal-comment').css('display', 'flex');
+}
+
+const submitReplyComment = async (comment_id, parent_comment_id_param) => {
+    const content = $('#modal-comment-reply-input').val();
+
+    $.ajax({
+        url: `http://127.0.0.1:5000/comments/${comment_id}/reply`,
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            post_id: $('#post-id').val(),
+            content: content,
+            parent_comment_id: parent_comment_id_param
+        }),
+        success: function(data) {
+            console.log('Success:', data);
+            $('#modal-comment-reply-input').val('');
+            closeModal();
+            loadComments($('#post-id').val());
+        },
+    });
 }
 
 const cryptocurrency = async () => {
