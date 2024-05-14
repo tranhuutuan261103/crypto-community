@@ -2,3 +2,4 @@
 %pip install flask_cors
 %pip install flask_uploads
 %pip install firebase_admin
+%pip install pyrebase4

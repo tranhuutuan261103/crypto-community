@@ -1,0 +1,126 @@
+.modal-auth {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+    opacity: 0;
+    transition: z-index 0.2s, opacity 0.2s;
+}
+
+.modal-auth--show {
+    z-index: 1001;
+    opacity: 1;
+}
+
+.modal-auth__container {
+    position: relative;
+    width: 400px;
+    max-height: 100%;
+    padding: 24px;
+    background-color: #fff;
+    border-radius: 20px;
+    scale: 0;
+    transition: scale 0.2s;
+}
+
+.modal-auth--show .modal-auth__container {
+    scale: 1;
+}
+
+.modal-auth__close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    font-size: 1.8rem;
+    color: #000;
+    background-color: transparent;
+    border-radius: 999px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.modal-auth__close-button:hover {
+    background-color: #ddd;
+}
+
+.modal-auth__header {
+    display: flex;
+    justify-content: space-around;
+}
+
+.modal-auth__title {
+    position: relative;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #000;
+    cursor: pointer;
+}
+
+.modal-auth__title::after {
+    position: absolute;
+    top: calc(100% + 2px);
+    left: calc(50% - 15px);
+    content: '';
+    display: block;
+    width: 30px;
+    height: 5px;
+    border-radius: 999px;
+    background-color: #7bff00;
+    scale: 0;
+    transition: scale 0.2s;
+}
+
+.modal-auth__title--active::after {
+    scale: 1;
+}
+
+.modal-auth__content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 24px;
+}
+
+.modal-auth__block {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-auth__fullname--hide {
+    display: none;
+}
+
+.modal-auth__label {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #000;
+}
+
+.modal-auth__input {
+    margin-top: 8px;
+    padding: 14px;
+    font-size: 1.6rem;
+    color: #000;
+    background-color: #fff;
+    border: 1px solid rgb(207, 214, 228);
+    border-radius: 4px;
+    outline: none;
+}
+
+.modal-auth__input::placeholder {
+    color: rgb(91 104 128);
+}
+
+.modal-auth__input:focus {
+    border-color: #7bff00;
+    box-shadow: rgb(123, 255, 0, 0.5) 0px 0px 0px 4px;
+}

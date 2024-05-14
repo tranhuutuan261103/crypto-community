@@ -1,18 +1,29 @@
 from firebase_admin import auth
+from website.db_config.firebase_client import auth as authClient
 
-def register(email, password):
+def register(email, password, name):
     try:
-        user = auth.create_user(
+        auth.create_user(
             email=email,
-            password=password
+            password=password,
+            display_name=name
         )
+        user = authClient.sign_in_with_email_and_password(email, password)
         return user
     except Exception as e:
         return str(e)
     
-def get_user(uid):
+def login(email, password):
     try:
-        user = auth.get_user(uid)
+        user = authClient.sign_in_with_email_and_password(email, password)
+        return user
+    except Exception as e:
+        print(e)
+        return str(e)
+    
+def get_user(id_token):
+    try:
+        user = authClient.get_account_info(id_token)
         return user
     except Exception as e:
         return str(e)
