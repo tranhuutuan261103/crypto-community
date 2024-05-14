@@ -20,7 +20,6 @@
         <div class="sidebar">
             <div class="sidebar__header">
                 <i class="fa-brands fa-bitcoin logo"></i>
-                <h1 class="sidebar__title">Crypto Community</h1>
             </div>
             <ul class="sidebar__list">
                 <li class="sidebar__item sidebar__item--active">
@@ -37,77 +36,106 @@
                 </li>
             </ul>
         </div>
-        <div class="post-main">
-            <div class="back-container">
-                <a href="/post" class="back">
-                    <i class="fa-solid fa-arrow-left-long"></i>
-                Post detail</a>
-                <div class="separate post-top__separate"></div>
-            </div>
-            <div class="post">
-                <input type="hidden" id="post-id" value="{{ post.id }}">
-                <div class="post__header">
-                    {% if post.posted_by.avatar %}
-                        <img class="post__avatar" src="{{ post.posted_by.avatar }}" alt="avatar">
-                    {% else %}
-                        <img class="post__avatar" src="https://www.gravatar.com/avatar/" alt="avatar">
-                    {% endif %}
-                    <div class="post__info">
-                        <div class="post__name
-                        ">{{ post.posted_by.name }}</div>
-                        <div class="post__time
-                        ">{{ post.created_at }}</div>
+
+        <div class="main">
+            <div class="topbar">
+                <div class="search_bar">
+                    <i class="fa-solid fa-search search_bar__icon"></i>
+                    <input
+                        type="text"
+                        class="search_bar__input"
+                        placeholder="Search articles"
+                    />
+                    <i class="fa-solid fa-times search_bar__icon"></i>
+                </div>
+
+                <div class="logo">
+                    <i class="fa-brands fa-bitcoin"></i>
+                    <h1 class="logo__title">Crypto Community</h1>
+                </div>
+
+                <div class="user">
+                    <p class="user__welcome">Welcome to Community</p>
+                    <div class="user_circle">
+                        <i class="fa-solid fa-user user__icon"></i>
                     </div>
                 </div>
-                <div class="post__content">{{ post.content }}</div>
-                {% if post.thumbnail %}
-                    <img class="post__thumbnail" src="{{ post.thumbnail }}" alt="thumbnail">
-                {% endif %}
-                <div class="post__footer">
-                    <div class="post__view">
-                        <i class="fa-regular fa-eye"></i>
-                        <span class="post-footer__span">{{ post.eye }}</span>
+            </div>
+
+            <div class="content-outer">
+                <div class="post-main">
+                    <div class="back-container">
+                        <a href="/post" class="back">
+                            <i class="fa-solid fa-arrow-left-long"></i>
+                        Post detail</a>
+                        <div class="separate post-top__separate"></div>
                     </div>
-                    <div id="post-{{ post.id }}__like" class="post__like {% if post.liked_by_me %}post__liked{% endif %}" 
-                        onclick="likePost('{{ post.id }}')"
-                    >
-                        <i class="fa-regular fa-heart"></i>
-                        <span
-                            id="post-{{ post.id }}__like--value"
-                            class="post-footer__span"
-                        >
-                            {% if post.liked_by | length == 0 %}
-                                0
+                    <div class="post">
+                        <input type="hidden" id="post-id" value="{{ post.id }}">
+                        <div class="post__header">
+                            {% if post.posted_by.avatar %}
+                                <img class="post__avatar" src="{{ post.posted_by.avatar }}" alt="avatar">
                             {% else %}
-                                {{ post.liked_by | length }}
+                                <img class="post__avatar" src="https://www.gravatar.com/avatar/" alt="avatar">
                             {% endif %}
-                        </span>
+                            <div class="post__info">
+                                <div class="post__name
+                                ">{{ post.posted_by.name }}</div>
+                                <div class="post__time
+                                ">{{ post.created_at }}</div>
+                            </div>
+                        </div>
+                        <div class="post__content">{{ post.content }}</div>
+                        {% if post.thumbnail %}
+                            <img class="post__thumbnail" src="{{ post.thumbnail }}" alt="thumbnail">
+                        {% endif %}
+                        <div class="post__footer">
+                            <div class="post__view">
+                                <i class="fa-regular fa-eye"></i>
+                                <span class="post-footer__span">{{ post.eye }}</span>
+                            </div>
+                            <div id="post-{{ post.id }}__like" class="post__like {% if post.liked_by_me %}post__liked{% endif %}" 
+                                onclick="likePost('{{ post.id }}')"
+                            >
+                                <i class="fa-regular fa-heart"></i>
+                                <span
+                                    id="post-{{ post.id }}__like--value"
+                                    class="post-footer__span"
+                                >
+                                    {% if post.liked_by | length == 0 %}
+                                        0
+                                    {% else %}
+                                        {{ post.liked_by | length }}
+                                    {% endif %}
+                                </span>
+                            </div>
+                            <div class="post__comment" onclick="document.getElementById('comment-input').focus()">
+                                <i class="fa-regular fa-comment"></i>
+                                <span class="post-footer__span">0</span>
+                            </div>
+                        </div>
+                        <div class="separate post-top__separate"></div>
                     </div>
-                    <div class="post__comment" onclick="document.getElementById('comment-input').focus()">
-                        <i class="fa-regular fa-comment"></i>
-                        <span class="post-footer__span">0</span>
+                    <div class="comment-creation">
+                        <div class="comment-left">
+                            <img class="comment__avatar" src="{{ url_for('static',filename='images/user.png') }}" alt="avatar">
+                        </div>
+                        <div class="comment__input">
+                            <textarea id="comment-input" class="comment__input--text" placeholder="Write a comment..."></textarea>
+                            <button class="button comment__input--button" onclick="addComment('{{ post.id }}')">Comment</button>
+                        </div>
+                    </div>
+                    
+                    <div class="separate post-top__separate"></div>
+                    <div class="comment-container">
+                        <div class="comment__title">Comments</div>
+                        <div class="comment__list" id="comments"></div>
                     </div>
                 </div>
-                <div class="separate post-top__separate"></div>
-            </div>
-            <div class="comment-creation">
-                <div class="comment-left">
-                    <img class="comment__avatar" src="{{ url_for('static',filename='images/user.png') }}" alt="avatar">
-                </div>
-                <div class="comment__input">
-                    <textarea id="comment-input" class="comment__input--text" placeholder="Write a comment..."></textarea>
-                    <button class="button comment__input--button" onclick="addComment('{{ post.id }}')">Comment</button>
+                <div class="right">
+                    <div id="trending-token" class="trending-token"></div>
                 </div>
             </div>
-            
-            <div class="separate post-top__separate"></div>
-            <div class="comment-container">
-                <div class="comment__title">Comments</div>
-                <div class="comment__list" id="comments"></div>
-            </div>
-        </div>
-        <div class="right">
-            <div id="trending-token" class="trending-token"></div>
         </div>
     </div>
 

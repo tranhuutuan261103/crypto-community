@@ -3,7 +3,7 @@ html {
 }
 
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
     line-height: 1.5;
 }
 
@@ -13,8 +13,8 @@ body {
     padding: 10px 20px;
     border-radius: 4px;
     border: none;
-    background-color: #486dfb;
-    color: #fff;
+    background-color: #7bff00;
+    color: #2d1616;
     font-size: 1.6rem;
     font-weight: 700;
     outline: none;
@@ -37,19 +37,16 @@ body {
     display: flex;
     width: 100%;
     justify-content: space-between;
-    gap: 50px;
 }
 
 /* Sidebar */
 
 .sidebar {
-    min-width: 240px;
-    max-width: 320px;
-    width: 100%;
+    width: 240px;
     height: 100vh;
     position: sticky;
     top: 0;
-    background-color: #f8fafd;
+    background-color: #191b1d;
 }
 
 .sidebar__header {
@@ -59,8 +56,13 @@ body {
     gap: 2px;
     padding: 16px 0px;
     font-size: 1.6rem;
-    font-weight: 700;
+    font-weight: 600;
     color: #333;
+}
+
+.sidebar__header i {
+    font-size: 5rem;
+    color: hsl(91, 100%, 50%);
 }
 
 .logo {
@@ -75,28 +77,135 @@ body {
     gap: 10px;
 }
 
+.sidebar__item {
+    width: 100%;
+}
+
 .sidebar__item a {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-left: auto;
-    margin-right: 50px;
+    padding: 16px 20px;
     max-width: 200px;
     padding: 16px 20px;
-    color: #333;
+    color: #adacac;
     font-size: 1.4rem;
     font-weight: 600;
     text-decoration: none;
+    border-left: 2px solid transparent;
 }
 
 .sidebar__item a:hover {
-    background-color: #eff2f5;
-    border-radius: 4px;
+    border-left: 2px solid hsl(91, 100%, 50%);
 }
 
 .sidebar__item--active a {
-    background-color: #eff2f5;
+    color: hsl(91, 100%, 50%);
+    background-color: #444444;
+    border-left: 2px solid hsl(91, 100%, 50%);
+}
+
+/* Main */
+
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: calc(100% - 240px);
+}
+
+.content-outer {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 50px;
+    background-color: #101214;
+}
+
+/* Top bar */
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 80px;
+    position: sticky;
+    top: 0; /* Đặt khoảng cách từ phía trên của viewport đến topbar */
+    background: #101214; /* Nên đặt màu nền để đảm bảo topbar không trong suốt */
+    z-index: 1000; /* Đảm bảo topbar ở trên các phần tử khác */
+}
+
+.search_bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #191b1d;
+    border-radius: 999px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.search_bar i {
+    font-size: 2rem;
+    color: #adacac;
+}
+
+.search_bar__input {
+    width: 100%;
+    padding: 10px;
+    border: none;
     border-radius: 4px;
+    font-size: 1.6rem;
+    font-weight: 500;
+    outline: none;
+    background-color: transparent;
+    color: #adacac;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo i {
+    font-size: 4.6rem;
+    color: hsl(91, 100%, 50%);
+}
+
+.logo__title {
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #ddd;
+    padding: 5px 10px;
+    border-radius: 999px;
+}
+
+.user_circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid hsl(91, 100%, 50%);
+}
+
+.user__icon {
+    font-size: 1.7rem;
+}
+
+.user__welcome {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #adacac;
 }
 
 /* End sidebar */
@@ -104,10 +213,8 @@ body {
 .right {
     display: flex;
     flex-direction: column;
-    min-width: 240px;
-    width: 100%;
+    width: 320px;
     padding: 24px;
-    background-color: #fff;
 }
 
 .trending-token {
@@ -116,7 +223,14 @@ body {
     font-size: 1.6rem;
     font-weight: 700;
     color: #000;
-    box-shadow: 0px 0px 2px rgba(128,138,157,.12),0px 0px 24px rgba(128,138,157,.14);
+    box-shadow: 0px 0px 2px rgba(123, 255, 0, 0.12),
+        0px 0px 24px rgba(123, 255, 0, 0.14);
+}
+
+.trending-token__header--title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #fff;
 }
 
 .trending-token__item {
@@ -133,7 +247,7 @@ body {
     left: 0;
     top: 0;
     font-weight: 700;
-    color: #333
+    color: #ddd;
 }
 
 .trending-token__item--image {
@@ -146,20 +260,21 @@ body {
 
 .trending-token__item--name {
     font-weight: 700;
+    color: #fff;
 }
 
 .trending-token__item--slug {
     font-weight: 400;
     font-size: 1.4rem;
-    color: #333;
+    color: #ddd;
 }
 
 /* Main */
 
 .post-main {
     width: 100%;
-    min-width: 700px;
-    max-width: 700px;
+    max-width: 800px;
+    min-height: 100vh;
     padding-top: 20px;
 }
 
@@ -174,7 +289,7 @@ body {
     padding: 10px 20px;
     font-size: 2.4rem;
     font-weight: 600;
-    color: #000;
+    color: #fff;
     cursor: pointer;
     text-decoration: none;
 }
@@ -218,14 +333,19 @@ body {
 .post__name {
     font-size: 1.6rem;
     font-weight: 700;
-    color: #000;
+    color: #fff;
+}
+
+.post__time {
+    font-size: 1.4rem;
+    color: #adacac;
 }
 
 .post__content {
     margin: 10px 0;
     padding: 0px 60px;
     border-radius: 4px;
-    color: #000;
+    color: #fff;
     font-size: 1.6rem;
 }
 
@@ -250,17 +370,17 @@ body {
     align-items: center;
     gap: 5px;
     padding: 5px 10px;
-    color: #333;
+    color: #ddd;
     font-size: 1.6rem;
     cursor: pointer;
 }
 
 .post__liked {
-    color: #486dfb;
+    color: #7bff00;
 }
 
 .post__view:hover, .post__like:hover, .post__comment:hover {
-    color: #486dfb;
+    color: #7bff00;
 }
 
 /* Comment */
@@ -294,7 +414,7 @@ body {
 
 .comment__input--text:focus {
     height: 100px;
-    outline: 1px solid #486dfb;
+    outline: 1px solid #7bff00;
 }
 
 .comment__input--button {
@@ -312,7 +432,7 @@ body {
 .comment__title {
     font-size: 2.4rem;
     font-weight: 700;
-    color: #000;
+    color: #7bff00;
 }
 
 .comment__list {
@@ -342,7 +462,12 @@ body {
 .comment__user {
     font-size: 1.6rem;
     font-weight: 700;
-    color: #000;
+    color: #fff;
+}
+
+.comment__time {
+    font-size: 1.4rem;
+    color: #adacac;
 }
 
 .comment__reply-to {
@@ -350,14 +475,14 @@ body {
     left: 0;
     top: 22px;
     font-weight: 600;
-    color: #808A9D;
+    color: #dfdfdf;
 }
 
 .comment__content {
     margin-top: 10px;
     padding-right: 50px;
     font-size: 1.6rem;
-    color: #000;
+    color: #fff;
 }
 
 .comment__footer {
@@ -373,17 +498,17 @@ body {
     align-items: center;
     gap: 5px;
     padding: 5px 10px;
-    color: #333;
+    color: #ddd;
     font-size: 1.6rem;
     cursor: pointer;
 }
 
 .comment__like:hover, .comment__reply:hover {
-    color: #486dfb;
+    color: #7bff00;
 }
 
 .comment__liked {
-    color: #486dfb;
+    color: #7bff00;
 }
 
 .comment-item__separate {
@@ -412,7 +537,7 @@ body {
     padding: 20px;
     width: 40%;
     max-width: 700px;
-    background-color: #fff;
+    background-color: #101214;
     border-radius: 24px;
 }
 
@@ -426,14 +551,14 @@ body {
 .modal-comment__title {
     font-size: 2.4rem;
     font-weight: 700;
-    color: #000;
+    color: #fff;
 }
 
 .modal-comment__close-button {
     width: 40px;
     height: 40px;
     font-size: 1.8rem;
-    color: #000;
+    color: #fff;
     background-color: transparent;
     border-radius: 999px;
     border: none;
@@ -442,7 +567,7 @@ body {
 }
 
 .modal-comment__close-button:hover {
-    background-color: #eff2f5;
+    background-color: #444;
 }
 
 .modal-comment__creation {
@@ -474,7 +599,7 @@ body {
 
 .modal-comment__input--text:focus {
     height: 100px;
-    outline: 1px solid #486dfb;
+    outline: 1px solid #7bff00;
 }
 
 .modal-comment__input--button {

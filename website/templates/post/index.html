@@ -21,7 +21,6 @@
         <div class="sidebar">
             <div class="sidebar__header">
                 <i class="fa-brands fa-bitcoin logo"></i>
-                <h1 class="sidebar__title">Crypto Community</h1>
             </div>
             <ul class="sidebar__list">
                 <li class="sidebar__item sidebar__item--active">
@@ -38,76 +37,104 @@
                 </li>
             </ul>
         </div>
-        <div class="post-main">
-            <div class="post-top">
-                <div class="post-creation">
-                    <div class="post-creation__left">
-                        <img class="post-creation__avatar" src="{{ url_for('static',filename='images/user.png') }}"
-                            alt="user">
-                    </div>
-                    <div class="post-creation__right">
-                        <textarea id="content" name="message" class="post-creation__message"
-                            placeholder="How do you feel about the markets today? Share your ideas here!"></textarea>
-                        <div class="post-creation__bottom">
-                            <label for="thumbnail" class="post-creation__thumbnail-btn">
-                                <i class="fa-regular fa-image"></i>
-                                <input type="file" id="thumbnail" name="thumbnail" class="post-creation__thumbnail"
-                                    accept="image/*" hidden onchange="previewThumbnail(this)">
-                            </label>
-                            <img id="thumbnail-preview" class="post-creation__thumbnail-preview" src="" alt="thumbnail">
-                            <button id="post-creation-btn" class="button" onclick="createPost()">Post</button>
-                        </div>
+        <div class="main">
+            <div class="topbar">
+                <div class="search_bar">
+                    <i class="fa-solid fa-search search_bar__icon"></i>
+                    <input
+                        type="text"
+                        class="search_bar__input"
+                        placeholder="Search articles"
+                    />
+                    <i class="fa-solid fa-times search_bar__icon"></i>
+                </div>
+
+                <div class="logo">
+                    <i class="fa-brands fa-bitcoin"></i>
+                    <h1 class="logo__title">Crypto Community</h1>
+                </div>
+
+                <div class="user">
+                    <p class="user__welcome">Welcome to Community</p>
+                    <div class="user_circle">
+                        <i class="fa-solid fa-user user__icon"></i>
                     </div>
                 </div>
-                <div class="separate post-top__separate"></div>
             </div>
-            <div class="post-list">
-                {% for post in posts %}
-                <div class="post">
-                    <div class="post__link" onclick="post_detail('{{ post.id }}')">
-                        <div class="post__header">
-                            <img class="post__avatar" src="{{ post.posted_by.avatar }}" alt="user">
-                            <div class="post__info">
-                                <div class="post__name
-                                ">{{ post.posted_by.name }}</div>
-                                <div class="post__time
-                                ">{{ post.created_at }}</div>
+
+            <div class="content-outer">
+                <div class="post-main">
+                    <div class="post-top">
+                        <div class="post-creation">
+                            <div class="post-creation__left">
+                                <img class="post-creation__avatar" src="{{ url_for('static',filename='images/user.png') }}"
+                                    alt="user">
+                            </div>
+                            <div class="post-creation__right">
+                                <textarea id="content" name="message" class="post-creation__message"
+                                    placeholder="How do you feel about the markets today? Share your ideas here!"></textarea>
+                                <div class="post-creation__bottom">
+                                    <label for="thumbnail" class="post-creation__thumbnail-btn">
+                                        <i class="fa-regular fa-image"></i>
+                                        <input type="file" id="thumbnail" name="thumbnail" class="post-creation__thumbnail"
+                                            accept="image/*" hidden onchange="previewThumbnail(this)">
+                                    </label>
+                                    <img id="thumbnail-preview" class="post-creation__thumbnail-preview" src="" alt="thumbnail">
+                                    <button id="post-creation-btn" class="button" onclick="createPost()">Post</button>
+                                </div>
                             </div>
                         </div>
-                        <div class="post__content">{{ post.content }}</div>
-                        {% if post.thumbnail %}
-                        <img class="post__thumbnail" src="{{ post.thumbnail }}" alt="thumbnail">
-                        {% endif %}
+                        <div class="separate post-top__separate"></div>
                     </div>
-                    <div class="post__footer">
-                        <div class="post__view">
-                            <i class="fa-regular fa-eye"></i>
-                            <span class="post-footer__span">{{ post.eye }}</span>
-                        </div>
-                        <div id="post-{{ post.id }}__like"
-                            class="post__like {% if post.liked_by_me %}post__liked{% endif %}"
-                            onclick="likePost('{{ post.id }}')">
-                            <i class="fa-regular fa-heart"></i>
-                            <span id="post-{{ post.id }}__like--value" class="post-footer__span">
-                                {% if post.liked_by | length == 0 %}
-                                0
-                                {% else %}
-                                {{ post.liked_by | length }}
+                    <div class="post-list">
+                        {% for post in posts %}
+                        <div class="post">
+                            <div class="post__link" onclick="post_detail('{{ post.id }}')">
+                                <div class="post__header">
+                                    <img class="post__avatar" src="{{ post.posted_by.avatar }}" alt="user">
+                                    <div class="post__info">
+                                        <div class="post__name
+                                        ">{{ post.posted_by.name }}</div>
+                                        <div class="post__time
+                                        ">{{ post.created_at }}</div>
+                                    </div>
+                                </div>
+                                <div class="post__content">{{ post.content }}</div>
+                                {% if post.thumbnail %}
+                                <img class="post__thumbnail" src="{{ post.thumbnail }}" alt="thumbnail">
                                 {% endif %}
-                            </span>
+                            </div>
+                            <div class="post__footer">
+                                <div class="post__view">
+                                    <i class="fa-regular fa-eye"></i>
+                                    <span class="post-footer__span">{{ post.eye }}</span>
+                                </div>
+                                <div id="post-{{ post.id }}__like"
+                                    class="post__like {% if post.liked_by_me %}post__liked{% endif %}"
+                                    onclick="likePost('{{ post.id }}')">
+                                    <i class="fa-regular fa-heart"></i>
+                                    <span id="post-{{ post.id }}__like--value" class="post-footer__span">
+                                        {% if post.liked_by | length == 0 %}
+                                        0
+                                        {% else %}
+                                        {{ post.liked_by | length }}
+                                        {% endif %}
+                                    </span>
+                                </div>
+                                <div class="post__comment" onclick="post_detail('{{ post.id }}')">
+                                    <i class="fa-regular fa-comment"></i>
+                                    <span class="post-footer__span">0</span>
+                                </div>
+                            </div>
+                            <div class="separate post-top__separate"></div>
                         </div>
-                        <div class="post__comment">
-                            <i class="fa-regular fa-comment"></i>
-                            <span class="post-footer__span">0</span>
-                        </div>
+                        {% endfor %}
                     </div>
-                    <div class="separate post-top__separate"></div>
                 </div>
-                {% endfor %}
+                <div class="right">
+                    <div id="trending-token" class="trending-token"></div>
+                </div>
             </div>
-        </div>
-        <div class="right">
-            <div id="trending-token" class="trending-token"></div>
         </div>
     </div>
 
