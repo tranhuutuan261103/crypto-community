@@ -1,0 +1,264 @@
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    line-height: 1.5;
+    background-color: #101214;
+}
+
+/* Common */
+
+.button {
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: none;
+    background-color: #486dfb;
+    color: #fff;
+    font-size: 1.6rem;
+    font-weight: 600;
+    outline: none;
+    cursor: pointer;
+}
+
+.separate {
+    width: 100%;
+    height: 1px;
+    background-color: #ddd;
+}
+
+.limit-lines {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: var(--line-limit);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: wrap;
+}
+
+.read_more__btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 130px;
+    background-color: #444444;
+    border-radius: 999px;
+    padding: 5px 10px;
+    transition: background-color 0.3s ease;
+}
+
+.read_more__btn i {
+    font-size: 1.6rem;
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+.read_more__btn p {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+.read_more__btn:hover {
+    background-color: hsl(91, 100%, 50%);
+}
+
+.read_more__btn:hover i {
+    color: #333;
+}
+
+.read_more__btn:hover p {
+    color: #333;
+}
+
+/* End common */
+
+.container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+/* Sidebar */
+
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    background-color: #191b1d;
+}
+
+.sidebar__header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 16px 0px;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.sidebar__header i {
+    font-size: 5rem;
+    color: hsl(91, 100%, 50%);
+}
+
+.sidebar__title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 20px;
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: #fff;
+    font-style: italic;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    font-size: 4.6rem;
+}
+
+.sidebar__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sidebar__item {
+    width: 100%;
+}
+
+.sidebar__item a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 20px;
+    max-width: 200px;
+    padding: 16px 20px;
+    color: #adacac;
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-left: 2px solid transparent;
+}
+
+.sidebar__item a:hover {
+    border-left: 2px solid hsl(91, 100%, 50%);
+}
+
+.sidebar__item--active a {
+    color: hsl(91, 100%, 50%);
+    background-color: #444444;
+    border-left: 2px solid hsl(91, 100%, 50%);
+}
+
+/* Main */
+
+.main {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 240px);
+}
+
+/* Top bar */
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 80px;
+    position: sticky;
+    top: 0; /* Đặt khoảng cách từ phía trên của viewport đến topbar */
+    background: #101214; /* Nên đặt màu nền để đảm bảo topbar không trong suốt */
+    z-index: 1000; /* Đảm bảo topbar ở trên các phần tử khác */
+}
+
+.search_bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #191b1d;
+    border-radius: 999px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.search_bar i {
+    font-size: 2rem;
+    color: #adacac;
+}
+
+.search_bar__input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.6rem;
+    font-weight: 500;
+    outline: none;
+    background-color: transparent;
+    color: #adacac;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo i {
+    font-size: 4.6rem;
+    color: hsl(91, 100%, 50%);
+}
+
+.logo__title {
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #ddd;
+    padding: 5px 10px;
+    border-radius: 999px;
+}
+
+.user_circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid hsl(91, 100%, 50%);
+}
+
+.user__icon {
+    font-size: 1.7rem;
+}
+
+.user__welcome {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #adacac;
+}
+
+/* Content */
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px 80px;
+}

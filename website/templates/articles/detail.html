@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static',filename='styles/reset.css') }}"
+        />
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static',filename='styles/articles/detail.css') }}"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+            integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        
+        <title>
+            {% block title %}Articles - Crypto Community{% endblock %}
+        </title>
+
+        
+    </head>
+
+    <body>
+        <!-- Show list posts -->
+        <div class="container">
+            <div class="sidebar">
+                <div class="sidebar__header">
+                    <i class="fa-brands fa-bitcoin logo"></i>
+                </div>
+                <ul class="sidebar__list">
+                    <li class="sidebar__item">
+                        <a href="/post">
+                            <i class="fa-solid fa-rss"></i>
+                            Feed
+                        </a>
+                    </li>
+                    <li class="sidebar__item sidebar__item--active">
+                        <a href="/articles">
+                            <i class="fa-regular fa-file-lines"></i>
+                            Articles
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="main">
+                <div class="topbar">
+                    <div class="search_bar">
+                        <i class="fa-solid fa-search search_bar__icon"></i>
+                        <input
+                            type="text"
+                            class="search_bar__input"
+                            placeholder="Search articles"
+                        />
+                        <i class="fa-solid fa-times search_bar__icon"></i>
+                    </div>
+
+                    <div class="logo">
+                        <i class="fa-brands fa-bitcoin"></i>
+                        <h1 class="logo__title">Crypto Community</h1>
+                    </div>
+
+                    <div class="user">
+                        <p class="user__welcome">Welcome to Community</p>
+                        <div class="user_circle">
+                            <i class="fa-solid fa-user user__icon"></i>
+                        </div>
+                    </div>
+
+                
+                </div>
+
+                <div class="content">
+                    <div class="content__title">
+                        <h1 class="content__title-text">NEWS</h1>
+                    </div>
+                    <!-- Articles -->
+                    <div class="main-content">   
+                        <div class="article">
+                            <h1 class="article__title">ETH ETFs ĐƯỢC PHÊ DUYỆT TẠI HỒNG KÔNG VÀ CƠ HỘI CHO NHÀ ĐẦU TƯ</h1>
+                            <img src="https://firebasestorage.googleapis.com/v0/b/crypto-community-cb11a.appspot.com/o/thumbnails%20in%20article%2Fphoto_6158864424383921571_y.jpg?alt=media&token=377c1c8d-122a-429e-a67b-3d9ed9cfba21" alt="thumbnail" class="article__thumbnail">
+                            <div class="article__content">
+                                <p><br></p> <!-- /wp:paragraph -->  <!-- wp:paragraph --> <p><strong>Hồng kông chính thức phê duyệt Bitcoin và ETH ETFs</strong></p> <!-- /wp:paragraph -->  <!-- wp:paragraph --> <p>Ủy ban quản lý tài chính của Hồng Kông, Ủy ban Chứng khoán và Hợp đồng tương lai (SFC), đã thông báo về việc chính thức phê duyệt lô đầu tiên của các Quỹ giao dịch ETF Bitcoin (BTC) và Ether (ETH) trực tiếp vào ngày 24 tháng 4, theo một thông cáo báo chí được chia sẻ với Cointelegraph.</p> <!-- /wp:paragraph -->  <!-- wp:paragraph --> <p>Tổng cộng có 6 quỹ ETF spot tiền mã hóa, trong đó bao gồm 3 quỹ ETF Bitcoin Spot và 3 quỹ ETF Ether Spot sẽ chính thức bắt đầu giao dịch tại Hồng Kông từ ngày 30/04/2024. Đây là một bước quan trọng trong việc mở rộng lựa chọn đầu tư và phát triển thị trường tiền mã hóa tại Hồng Kông.</p> <!-- /wp:paragraph -->  <!-- wp:paragraph --> <p>Không giống như mô hình tạo lập bằng tiền mặt của các ETF spot Bitcoin tại Hoa Kỳ, Hong Kong nhằm mục đích cung cấp mô hình tạo lập bằng hiện vật cho các ETF, cho phép tạo các đơn vị ETF mới bằng cách sử dụng BTC và ETH.</p> <!-- /wp:paragraph -->  <!-- wp:paragraph --> <p><strong>Cuộc cạnh tranh về mức phí quản lý</strong></p> <!-- /wp:paragraph -->  <!-- wp:paragraph --> <p>Theo đánh giá của các chuyên gia, một cuộc cạnh tranh về phí quản lý của các quỹ có thể diễn ra, trong đó:</p> <!-- /wp:paragraph -->  <!-- wp:list --> <ul><!-- wp:list-item --> <li>Harvest sẽ miễn phí quản lý cho khách hàng trong 6 tháng đầu tiên, sau đó mức phí sẽ là 0,3%.</li> <!-- /wp:list-item -->  <!-- wp:list-item --> <li>Bosera cố định phí quản lý 0,6% cho cả 2 sản phẩm ETF spot Bitcoin và Ether.</li> <!-- /wp:list-item -->  <!-- wp:list-item --> <li>Phí cao nhất thuộc về ChinaAMC khi cố định 0,99%.</li> <!-- /wp:list-item --></ul> <!-- /wp:list -->  <!-- wp:paragraph --> <p>Đây cũng là 3 quỹ được phê duyệt đầu tiên tại thị trường Hồng Kông.</p> <!-- /wp:paragraph -->  <!-- wp:paragraph --> <p><strong>Tiềm năng của thị trường BTC và ETH ETFs tại Hồng Kông</strong></p> <!-- /wp:paragraph -->  <!-- wp:paragraph --> <p>Là một trong những thị trường tài chính lớn và sôi động hàng đầu tại Châu Á, thị trường Hồng Kông dự kiến sẽ mang lại một dòng tiền không hề nhỏ cho thị trường cryptocurrency. Theo đánh giá của các chuyên gia tại Bloomberg, dòng tiền này có thể lên tới 1 tỷ đô trong 1-2 năm đầu tiên.</p> <!-- /wp:paragraph -->  <!-- wp:paragraph --> <p>Tuy nhiên, theo thông tin từ giới phân tích của các chuyên gia tại đây, nhà đầu tư Trung Quốc đại lục sẽ không được phép đầu tư vào các ETF spot Crypto do Hong Kong quản lý. Điều này có thể có ảnh hưởng đến quy mô và phạm vi của thị trường tiền mã hóa ETF tại Hong Kong.</p> <!-- /wp:paragraph -->  <!-- wp:paragraph --> <p><strong>Những dự án được hưởng lợi </strong></p> <!-- /wp:paragraph -->  <!-- wp:paragraph --> <p>Mặc dù BTC và ETH ETFs, nhưng có vẻ như ETH và những dự án liên quan lại được hưởng lợi nhiều hơn là BTC. Nguyên nhân có thể là do BTC đã tăng trưởng nhiều trước đó, cũng như tin tức BTC ETFs tại Mỹ đã được hấp thụ. Sau đây là tên một số dự án được hưởng lợi từ tin tức này:</p> <!-- /wp:paragraph -->  <!-- wp:paragraph --> <p>1. ETH: Chắc chắn rồi, với tư cách là đồng tiền điện tử có vốn hoá lớn thứ 2 trên thị trường, ETH đã và đang là một chọn đầu tư an toàn cho nhiều nhà đầu tư. Khi ngày giao dịch ETFs đã cận kề, ETH cũng đã cho thấy một mức tăng trưởng ấn tượng (~8 % trong ngày hôm nay, 28/04/2024).</p> <!-- /wp:paragraph -->  <!-- wp:paragraph --> <p>2. ENS (Ethereum Name Service): Một dự án làm về domain cho ETH chain. Dự án hiện tại đang giao dịch ở mức giá 16.1$, với mức vốn hoá khoảng 500 triệu, ghi nhận mức tăng hơn 20% chỉ trong vòng một ngày. Điều đáng chú ý là dự án này đã được chính Founder của ETH là Vitalik shill đầu năm nay.</p> <!-- /wp:paragraph -->  <!-- wp:paragraph --> <p>3. SSV (SSV Network): Một dự án làm về mảng staking ETH. Dự án vừa mới ghi nhận số lượng ETH được đem vào stake tại giao thức kỷ lục, khoảng hơn 600 ngàn ETH, với giá trị hiện tại ức tính khoảng hơn 2 tỷ đô la. Mặc dù vậy, vốn hoá của dự án lại mới đang ở khoảng 500 triệu đô. Dự án cũng đã ghi nhận mức tăng trưởng ấn tượng trong ngày hôm qua (28/04), đạt khoảng 22%, hiện nay một token SSV đang được giao dịch ở mức 53 triệu đô.</p> <!-- /wp:paragraph -->  <!-- wp:paragraph --> <p>4. ETHFI: Một trong những dự án hàng đầu về trend restaking. Token này ngay hôm nay đang đứng đầu top tăng trưởng trên Binance, ghi nhận mức tăng hơn 30%. Hiện tại token này đang được gia dịch với mức giá khoảng 4.1 đô, tương ứng với mức vốn khoảng 510 triệu đô. Token này đã được CPC Capital nhắc tới có thể mua được dưới giá 4 đô tới 3 đô, trong ngày hôm qua đã có lãi.</p> <!-- /wp:paragraph -->  <!-- wp:paragraph --> <p>5. ALT (Altlayer): Một dự án rất nổi bật khác trong mảng restaking. Hiện tại, đang giao dịch ở mức giá ~0.37 đô, tương ứng với vốn hoá khoảng 400 triệu đô. Về dài hạn, đây vẫn được xem là một vùng giá an toàn.</p> <!-- /wp:paragraph -->  <!-- wp:paragraph --> <p>6. STRK (Starknet): Dự án về layer 2 gây rất nhiều tranh cãi cho cộng đồng trong thời gian qua. Do việc airdrop không công bằng, cũng như có rất ít cập nhật, không theo kịp xu hướng meme trong thời gian qua nên STRK về phân tích cơ bản thì không bằng những dự án cùng mảng như OP hay ARB. Tuy nhiên, dự án từ lúc list sàn tới nay liên tục giảm, chưa có một sóng tăng nào mạnh, có thể xem xét để lướt sóng ngắn hạn. STRK cũng đã ghi nhận mức tăng trưởng khoảng 15% trong 24h qua, hiện tại đang giao dịch ở mức giá 1.2$ (tương ứng với mức vốn hoá khoảng 900 triệu đô).</p> <!-- /wp:paragraph -->  <!-- wp:paragraph --> <p><strong>Kết luận</strong></p> <!-- /wp:paragraph -->  <!-- wp:paragraph --> <p>Có thể thấy, rất nhiều dự án đã được hưởng lợi khi ngày giao dịch ETFs đầu tiên tại Hồng Kông tới gần. Tuy nhiên, tin tức được đưa ra là để hợp thức hoá đường giá. Bài học về việc fomo sau khi BTC ETFs được phê duyệt vẫn còn đó. Vì vậy, theo nhận định, hiện tại chúng ta có thể tìm những vì thế trade ngắn hạn ăn theo tin tức. Những lệnh trade nên có TP và SL rõ ràng, trành fomo khi giá đã tăng quá cao, nhất là trong giai đoạn thị trường xấu và thanh khoản thấp như hiện nay.</p> <!-- /wp:paragraph --> 
+                            </div>
+                            <div class="article__footer">
+                                <div class="article__author">
+                                    <i class="fa-solid fa-user"></i>
+                                    <p class="article__author-name">Crypto Community</p>
+                                </div>
+                                <div class="article__date">
+                                    <i class="fa-solid fa-calendar"></i>
+                                    <p class="article__date-text">28/04/2024</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    </body>
+</html>

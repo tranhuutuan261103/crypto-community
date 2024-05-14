@@ -89,11 +89,7 @@ body {
     height: 100vh;
     position: sticky;
     top: 0;
-<<<<<<< Updated upstream
-    background-color: #f8fafd;
-=======
     background-color: #191b1d;
->>>>>>> Stashed changes
 }
 
 .sidebar__header {
@@ -256,134 +252,30 @@ body {
     padding: 20px 80px;
 }
 
-.highlight {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
+/* Title */
 
-.highlight__title {
+.content__title {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.highlight__title--icon {
+.content__title-text {
     font-size: 2.4rem;
+    font-weight: 600;
     color: hsl(91, 100%, 50%);
+    position: relative;
 }
 
-.highlight__title--text {
-    font-size: 2.4rem;
-    font-weight: 600;
-    color: #fff;
-}
-
-.highlight__content {
-    display: flex;
-    overflow-x: hidden; /* Ẩn thanh cuộn ngang */
-    overflow-y: hidden; /* Ẩn thanh cuộn dọc */
-    padding: 10px 0;
-    white-space: nowrap; /* Ngăn các phần tử con xuống dòng */
-    padding: 15px;
-}
-
-.highlight__article {
-    width: 500px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-    border-radius: 12px;
-    background: rgb(27 29 31);
-    margin-right: 20px;
-    min-width: 500px;
-    overflow: hidden;
-    transition: transform 0.3s ease;
-}
-
-@supports (backdrop-filter: blur(5px) brightness(90%)) or
-    (-webkit-backdrop-filter: blur(5px) brightness(90%)) {
-    .highlight__article {
-        backdrop-filter: blur(5px) brightness(90%);
-        -webkit-backdrop-filter: blur(5px) brightness(90%);
-    }
-}
-
-.highlight__article:hover {
-    box-shadow: hsl(91, 100%, 50%) 0px 0px 10px 0px;
-}
-
-.highlight__article--thumbnail {
-    width: 50%;
-    height: 250px;
-    background-color: #ddd;
-}
-
-.highlight__article--thumbnail img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.highlight__article--content {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 10px;
-    width: 50%;
-    max-width: 400px;
-    overflow: hidden;
-}
-
-.highlight__article--title {
-    max-width: 100%;
-    font-size: 2rem;
-    font-weight: 600;
-    color: #fff;
-}
-
-.highlight__article--description {
-    max-width: 100%;
-    font-size: 1.6rem;
-    color: #adacac;
-}
-
-.read_more__btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    width: 130px;
-    background-color: #444444;
-    border-radius: 999px;
-    padding: 5px 10px;
-    transition: background-color 0.3s ease;
-}
-
-.read_more__btn i {
-    font-size: 1.6rem;
-    color: #fff;
-    transition: color 0.3s ease;
-}
-
-.read_more__btn p {
-    font-size: 1.6rem;
-    font-weight: 600;
-    color: #fff;
-    transition: color 0.3s ease;
-}
-
-.read_more__btn:hover {
+.content__title-text::after {
+    position: absolute;
+    content: "";
+    display: block;
+    width: 150px;
+    height: 2px;
+    right: -160px;
+    bottom: 17px;
     background-color: hsl(91, 100%, 50%);
-}
-
-.read_more__btn:hover i {
-    color: #333;
-}
-
-.read_more__btn:hover p {
-    color: #333;
 }
 
 /* Articles */
@@ -395,107 +287,88 @@ body {
     width: 100%;
 }
 
-.categories {
+.article {
     display: flex;
     flex-direction: column;
-    gap: 50px;
+    gap: 10px;
     width: 100%;
-}
-
-.category-container-item {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: 100%;
-}
-
-.category-container-item__header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-}
-
-.category-container-item__title {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-    font-size: 2.4rem;
-    font-weight: 600;
-    color: #fff;
-}
-
-.category-container-item__link {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-    font-size: 1.6rem;
-    font-weight: 600;
-    color: #adacac;
-    text-decoration: none;
-    border-bottom: 2px solid hsl(91, 100%, 50%);
-}
-
-.category-container-item__content {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-
-.category-container-item__article {
-    width: calc(100% / 3 - 20px);
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    border-radius: 12px;
+    padding: 40px 120px;
     background-color: #1b1d1f;
-    transition: transform 0.3s ease;
-    overflow: hidden;
+    border-radius: 12px;
 }
 
-.category-container-item__article:hover {
-    transform: scale(1.05);
-    box-shadow: hsl(91, 100%, 50%) 0px 0px 10px 0px;
-}
-
-.category-container-item__article--thumbnail {
-    width: 100%;
-    height: 200px;
-    background-color: #ddd;
-}
-
-.category-container-item__article--thumbnail img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.category-container-item__article--info {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 0px 15px 15px;
-}
-
-.category-container-item__article--title {
-    font-size: 1.8rem;
+.article__title {
+    font-size: 4rem;
     font-weight: 600;
     color: #fff;
 }
 
-.category-container-item__article--description {
-    font-size: 1.6rem;
-    color: #adacac;
+.article__thumbnail {
+    width: 100%;
+    height: 450px;
+    border-radius: 4px;
+    background-color: #333333;
 }
 
-.most_read-container {
+.article__content {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    width: 350px;
-    background-color: #444444;
-    border-radius: 12px;
+    gap: 10px;
+    padding-bottom: 20px;
+}
+
+.article__content p,
+li {
+    font-size: 1.6rem;
+    color: #ddd;
+}
+
+.article__content strong {
+    font-weight: 600;
+    font-size: 2rem;
+}
+
+.article__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    padding: 30px 0 0 0;
+}
+
+.article__footer::before {
+    position: absolute;
+    top: 0;
+    content: "";
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: hsl(91, 100%, 50%);
+}
+
+.article__author {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.article__author i,
+p {
+    font-size: 1.6rem;
+    color: #fff;
+}
+
+.article__date {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.4rem;
+    color: #ddd;
+}
+
+.article__date i,
+p {
+    font-size: 1.6rem;
+    color: #fff;
 }
