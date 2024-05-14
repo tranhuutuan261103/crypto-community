@@ -131,7 +131,7 @@ body {
     position: sticky;
     top: 0; /* Đặt khoảng cách từ phía trên của viewport đến topbar */
     background: #101214; /* Nên đặt màu nền để đảm bảo topbar không trong suốt */
-    z-index: 1000; /* Đảm bảo topbar ở trên các phần tử khác */
+    z-index: 1; /* Đảm bảo topbar ở trên các phần tử khác */
 }
 
 .search_bar {
@@ -179,12 +179,14 @@ body {
 }
 
 .user {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 10px;
     border: 1px solid #ddd;
     padding: 5px 10px;
     border-radius: 999px;
+    cursor: pointer;
 }
 
 .user_circle {
@@ -206,6 +208,73 @@ body {
     font-size: 1.2rem;
     font-weight: 600;
     color: #adacac;
+}
+
+.user-welcome__username {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+/* Box */
+
+.box-user {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    width: 200px;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 4px;
+    z-index: 10;
+    display: none;
+}
+
+.box-user--show {
+    display: block;
+}
+
+.box-user__header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.box-user__avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #f8f8f8;
+}
+
+.box-user__name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #333;
+}
+
+.box-user__email {
+    font-size: 1.2rem;
+    color: #adacac;
+}
+
+.box-user .separate {
+    margin: 10px 0;
+}
+
+.box-user__item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #333;
+    cursor: pointer;
+}
+
+.box-user__item:hover {
+    background-color: #f8f8f8;
 }
 
 /* End sidebar */
