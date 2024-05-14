@@ -35,6 +35,14 @@
                         Articles
                     </a>
                 </li>
+                {% for category in categories %}
+                    <li class="sidebar__item">
+                        <a href="/articles/category/{{category.title}}">
+                            <i class="fa-solid {{category.icon}}"></i>
+                            {{category.title}}
+                        </a>
+                    </li>
+                {% endfor %}
             </ul>
         </div>
 

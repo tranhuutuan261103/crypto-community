@@ -51,3 +51,7 @@ function enableDragAndDrop(elementId) {
         }
     });
 }
+
+const article_detail = async (article_id) => {
+    window.location.href = "/articles/" + article_id;
+};

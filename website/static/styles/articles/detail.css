@@ -9,12 +9,16 @@ body {
 }
 
 /* Common */
+a {
+    text-decoration: none;
+    color: inherit;
+}
 
 .button {
     padding: 10px 20px;
     border-radius: 4px;
     border: none;
-    background-color: #486dfb;
+    background-color: hsl(91, 100%, 50%);
     color: #fff;
     font-size: 1.6rem;
     font-weight: 600;
@@ -214,12 +218,14 @@ body {
 }
 
 .user {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 10px;
     border: 1px solid #ddd;
     padding: 5px 10px;
     border-radius: 999px;
+    cursor: pointer;
 }
 
 .user_circle {
@@ -240,7 +246,74 @@ body {
 .user__welcome {
     font-size: 1.2rem;
     font-weight: 600;
+    color: hsl(0, 1%, 68%);
+}
+
+.user-welcome__username {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+/* Box */
+
+.box-user {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    width: 200px;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 4px;
+    z-index: 10;
+    display: none;
+}
+
+.box-user--show {
+    display: block;
+}
+
+.box-user__header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.box-user__avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #f8f8f8;
+}
+
+.box-user__name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #333;
+}
+
+.box-user__email {
+    font-size: 1.2rem;
     color: #adacac;
+}
+
+.box-user .separate {
+    margin: 10px 0;
+}
+
+.box-user__item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #333;
+    cursor: pointer;
+}
+
+.box-user__item:hover {
+    background-color: #f8f8f8;
 }
 
 /* Content */
@@ -315,6 +388,23 @@ body {
     flex-direction: column;
     gap: 10px;
     padding-bottom: 20px;
+    color: #ddd;
+    font-size: 1.6rem;
+    color: #ddd;
+}
+
+.article__content h2 {
+    font-size: 2.6rem;
+    color: #fff;
+    font-weight: 600;
+    margin: 10px 0px 5px 0px;
+}
+
+.article__content h3 {
+    font-size: 2.4rem;
+    color: #fff;
+    font-weight: 600;
+    margin: 10px 0px 5px 0px;
 }
 
 .article__content p,
@@ -323,9 +413,21 @@ li {
     color: #ddd;
 }
 
+.article__content div {
+    font-size: 1.6rem;
+    color: #ddd;
+}
+
 .article__content strong {
+    color: #fff;
     font-weight: 600;
     font-size: 2rem;
+    margin: 10px 0px 5px 0px;
+}
+
+.article__content img {
+    width: 100%;
+    border-radius: 4px;
 }
 
 .article__footer {

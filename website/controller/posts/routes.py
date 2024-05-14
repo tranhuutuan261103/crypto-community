@@ -2,6 +2,7 @@ from flask import render_template, request, jsonify
 from flask_uploads import UploadSet, IMAGES
 # Khởi tạo Flask-Uploads
 photos = UploadSet('photos', IMAGES)
+from website.models.categories import get_categories
 from website.models.post import get_posts, get_sorted_posts, get_post, like_post, create_post
 from requests import Request, Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
@@ -12,13 +13,15 @@ from website.controller.posts import bp
 
 @bp.route('/')
 def index():
+    categories = get_categories()
     posts = get_sorted_posts("b9JzFIcDQtXurNFI8wyD", 10)
-    return render_template('post/index.html', posts=posts)
+    return render_template('post/index.html', posts=posts, categories=categories)
 
 @bp.route('/<string:post_id>')
 def detail(post_id):
+    categories = get_categories()
     post = get_post(post_id)
-    return render_template('post/detail.html', post=post)
+    return render_template('post/detail.html', post=post, categories=categories)
 
 
 @bp.route('/like', methods=['POST'])
