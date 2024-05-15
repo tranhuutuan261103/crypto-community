@@ -117,8 +117,8 @@ body {
 .content-outer {
     display: flex;
     justify-content: space-between;
-    padding-left: 50px;
     background-color: #101214;
+    padding: 0 80px;
 }
 
 /* Top bar */
@@ -284,9 +284,12 @@ body {
     flex-direction: column;
     width: 320px;
     padding: 24px;
+    padding-right: 0;
 }
 
 .trending-token {
+    position: sticky;
+    top: 110px;
     padding: 8px 16px;
     border-radius: 8px;
     font-size: 1.6rem;

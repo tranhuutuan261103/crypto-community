@@ -288,6 +288,8 @@ body {
 }
 
 .trending-token {
+    position: sticky;
+    top: 106px;
     padding: 8px 16px;
     border-radius: 8px;
     font-size: 1.6rem;

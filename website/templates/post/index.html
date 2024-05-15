@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>{% block title %}Post{% endblock %}</title>
+    <title>{% block title %}Posts - Crypto Community{% endblock %}</title>
 </head>
 
 <body
@@ -175,7 +175,12 @@
                     </div>
                 </div>
                 <div class="right">
-                    <div id="trending-token" class="trending-token"></div>
+                    <div id="trending-token" class="trending-token">
+                        <div class="trending-token__header">
+                            <div class="trending-token__header--title">Trending Tokens</div>
+                        </div>
+                        <div id="trending-token-list" class="trending-token__list"></div> 
+                    </div>
                 </div>
             </div>
         </div>
