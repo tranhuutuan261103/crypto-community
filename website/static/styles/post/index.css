@@ -132,7 +132,7 @@ body {
     position: sticky;
     top: 0; /* Đặt khoảng cách từ phía trên của viewport đến topbar */
     background: #101214; /* Nên đặt màu nền để đảm bảo topbar không trong suốt */
-    z-index: 1; /* Đảm bảo topbar ở trên các phần tử khác */
+    z-index: 3; /* Đảm bảo topbar ở trên các phần tử khác */
 }
 
 .search_bar {
@@ -395,26 +395,99 @@ body {
     justify-content: space-between;
 }
 
+.post-creation__thumbnail-btn__outer {
+    position: relative;
+}
+
 .post-creation__thumbnail-btn {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 10px 10px;
     border-radius: 4px;
-    background-color: #eff2f5;
     color: #333;
     font-size: 1.6rem;
     cursor: pointer;
 }
 
 .post-creation__thumbnail-preview {
-    margin-left: 20px;
     margin-right: auto;
     height: 36px;
+    border-radius: 4px;
     object-fit: cover;
     box-shadow: 0px 0px 2px rgba(123, 255, 0, 0.12),
         0px 0px 24px rgba(123, 255, 0, 0.14);
     background-color: #f8f8f8;
+}
+
+.post-creation__thumbnail-preview__close {
+    position: absolute;
+    right: -5px;
+    top: -5px;
+    display: none;
+    width: 16px;
+    height: 16px;
+    font-size: 1.6rem;
+    color: red;
+    border-radius: 999px;
+    background-color: #000;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.post-creation__thumbnail-btn__outer:hover .post-creation__thumbnail-preview__close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.post-creation__thumbnail-btn__outer:has(img[src="https://www.polytechnique-insights.com/wp-content/uploads/2023/06/adobestock_577124018-1024x683.jpeg"]) .post-creation__thumbnail-preview__close {
+    display: none;
+}
+
+.post-creation__thumbnail-preview__extra {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 1.8rem;
+    color: #7bff00;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    border-radius: 4px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.post-creation__thumbnail-btn__outer:hover .post-creation__thumbnail-preview__extra {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.post-creation__thumbnail-btn__outer:has(img[src="https://www.polytechnique-insights.com/wp-content/uploads/2023/06/adobestock_577124018-1024x683.jpeg"]) .post-creation__thumbnail-preview__extra {
+    display: none;
+}
+
+.post-creation__thumbnail-preview__upload {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 1.8rem;
+    color: #7bff00;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    border-radius: 4px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.post-creation__thumbnail-btn__outer:hover:has(img[src="https://www.polytechnique-insights.com/wp-content/uploads/2023/06/adobestock_577124018-1024x683.jpeg"]) .post-creation__thumbnail-preview__upload {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .post-creation-on-upload {
@@ -426,6 +499,38 @@ body {
 .post-top__separate {
     margin: 20px 0;
     background-color: #7bff00;
+}
+
+.modal-image-preview {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 4;
+}
+
+.modal-image-preview__img {
+    object-fit: contain;
+}
+
+.modal-image-preview__close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    font-size: 2.4rem;
+    color: #fff;
+    border-radius: 999px;
+    cursor: pointer;
 }
 
 /* Post list */

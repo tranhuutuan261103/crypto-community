@@ -104,12 +104,25 @@
                                 <textarea id="content" name="message" class="post-creation__message"
                                     placeholder="How do you feel about the markets today? Share your ideas here!"></textarea>
                                 <div class="post-creation__bottom">
-                                    <label for="thumbnail" class="post-creation__thumbnail-btn">
-                                        <i class="fa-regular fa-image"></i>
-                                        <input type="file" id="thumbnail" name="thumbnail" class="post-creation__thumbnail"
-                                            accept="image/*" hidden onchange="previewThumbnail(this)">
-                                    </label>
-                                    <img id="thumbnail-preview" class="post-creation__thumbnail-preview" src="" alt="thumbnail">
+                                    <div class="post-creation__thumbnail-btn__outer">
+                                        <label for="thumbnail" class="post-creation__thumbnail-btn">
+                                            <input type="file" id="thumbnail" name="thumbnail" class="post-creation__thumbnail"
+                                                accept="image/*" hidden onchange="previewThumbnail(this)">
+                                            <img id="thumbnail-preview" class="post-creation__thumbnail-preview" 
+                                                src="https://www.polytechnique-insights.com/wp-content/uploads/2023/06/adobestock_577124018-1024x683.jpeg" 
+                                                alt="thumbnail"
+                                            />                                      
+                                        </label>
+                                        <span class="post-creation__thumbnail-preview__close" onclick="removeThumbnail()">
+                                            <i class="fa-solid fa-circle-xmark"></i>
+                                        </span>
+                                        <span class="post-creation__thumbnail-preview__extra" onclick="openModalImagePreview()">
+                                            <i class="fa-solid fa-magnifying-glass-plus"></i>
+                                        </span>
+                                        <label for="thumbnail" class="post-creation__thumbnail-preview__upload">
+                                            <i class="fa-solid fa-upload"></i>
+                                        </label>
+                                    </div>
                                     <button id="post-creation-btn" class="button" onclick="createPost()">Post</button>
                                 </div>
                             </div>
@@ -221,6 +234,17 @@
                 </div>
 
                 <button id="modal-auth-btn" class="button" onclick="login()">Login</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-image-preview" id="modal-image-preview">
+        <img id="thumbnail-preview-extra" class="modal-image-preview__img" 
+            src="https://www.polytechnique-insights.com/wp-content/uploads/2023/06/adobestock_577124018-1024x683.jpeg" 
+            alt="thumbnail"
+        />
+        <div class="modal-image-preview__close" onclick="closeModalImagePreview()">
+            <i class="fa-solid fa-x"></i>
         </div>
     </div>
 
