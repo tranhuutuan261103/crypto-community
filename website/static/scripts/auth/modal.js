@@ -75,6 +75,7 @@ const login = () => {
                     document.getElementById('email').value = '';
                     document.getElementById('password').value = '';
                     document.getElementById('fullname').value = '';
+                    location.reload();
                 }
             }
         });
@@ -107,6 +108,7 @@ const signup = () => {
                     document.getElementById('email').value = '';
                     document.getElementById('password').value = '';
                     document.getElementById('fullname').value = '';
+                    location.reload();
                 }
             }
         });
@@ -138,8 +140,19 @@ const checkLogin = () => {
 }
 
 const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user_name');
-    localStorage.removeItem('email');
-    checkLogin();
+    $.ajax({
+        type: 'POST',
+        url: 'http://127.0.0.1:5000/auth/logout',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        success: (response) => {
+            console.log(response);
+            localStorage.removeItem('token');
+            localStorage.removeItem('user_name');
+            localStorage.removeItem('email');
+            checkLogin();
+            location.reload();
+        }
+    });
 }

@@ -1,4 +1,4 @@
-from flask import render_template, request, jsonify
+from flask import render_template, request, jsonify, session
 from flask_uploads import UploadSet, IMAGES
 # Khởi tạo Flask-Uploads
 photos = UploadSet('photos', IMAGES)
@@ -8,33 +8,38 @@ from requests import Request, Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 import json
 import datetime
+from website.middlewares.auth import login_required, login_check
 
 from website.controller.posts import bp
 
 @bp.route('/')
-def index():
+@login_check
+def index(user_id=None):
     categories = get_categories()
-    posts = get_sorted_posts("b9JzFIcDQtXurNFI8wyD", 10)
+    posts = get_sorted_posts("b9JzFIcDQtXurNFI8wyD", 10, user_id)
     return render_template('post/index.html', posts=posts, categories=categories)
 
 @bp.route('/<string:post_id>')
-def detail(post_id):
+@login_check
+def detail(post_id, user_id=None):
     categories = get_categories()
-    post = get_post(post_id)
+    post = get_post(post_id, user_id)
     return render_template('post/detail.html', post=post, categories=categories)
 
 
 @bp.route('/like', methods=['POST'])
+@login_required
 def like():
     post_id = request.json.get('post_id')  # Correct method to access JSON data
-    print(post_id)
+    user_id = session['user']['localId']
     try:
-        response = like_post(post_id)
+        response = like_post(post_id, user_id)
         return jsonify(response), 200  # Ensure you return a JSON response
     except Exception as e:
         return jsonify({'error': str(e)}), 500  # Provide error message in response
 
 @bp.route('/create', methods=['POST'])
+@login_required
 def create():
     # Lấy dữ liệu post từ request JSON
     post = request.form.to_dict()
@@ -46,9 +51,14 @@ def create():
         thumbnail = None
 
     post['liked_by'] = []
+
+    user_id = session['user']['localId']
+    name = session['user']['displayName']
+    avatar = session['user']['photoUrl'] if 'photoUrl' in session['user'] else ''
     post['posted_by'] ={
-        'name': 'name',
-        'avatar': 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200'
+        'name': name if name != '' else 'Anonymous',
+        'avatar': avatar if avatar != '' else 'https://via.placeholder.com/150',
+        'user_id': user_id
     }
     post['created_at'] = datetime.datetime.now()
     post['eye'] = 0

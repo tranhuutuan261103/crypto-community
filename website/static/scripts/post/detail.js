@@ -87,6 +87,9 @@ const addComment = async (post_id) => {
         url: 'http://127.0.0.1:5000/comments/create',
         type: 'POST',
         contentType: 'application/json',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
         data: JSON.stringify({
             post_id: post_id,
             content: content,
@@ -108,8 +111,14 @@ const likeComment = async (comment_id) => {
         url: `http://127.0.0.1:5000/comments/${comment_id}/like`,
         type: 'POST',
         contentType: 'application/json',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
         success: function(data) {
-            console.log('Success:', data);
+            if (data.code === 401){
+                openModalAuth();
+                return;
+            }
             if (data.liked_by_me === false){
                 $('#comment-' + comment_id + '__like').removeClass('comment__liked');
             } else {
@@ -131,7 +140,8 @@ const likePost = async (p_id) => {
         const response = await fetch('http://127.0.0.1:5000/post/like', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
             },
             body: JSON.stringify(params)
         });
@@ -139,6 +149,10 @@ const likePost = async (p_id) => {
             throw new Error('Server responded with an error!');
         }
         const data = await response.json();
+        if (data.code === 401){
+            openModalAuth();
+            return;
+        }
         if (data === true){
             if ($('#post-' + p_id + '__like').hasClass('post__liked')){
                 $('#post-' + p_id + '__like').removeClass('post__liked');
@@ -170,6 +184,9 @@ const replyComment = (comment_id, parent_comment_id) => {
         url: `http://127.0.0.1:5000/comments/${comment_id}`,
         type: 'GET',
         contentType: 'application/json',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
         success: function(data) {
             $('#modal-comment-reply-user').text(data.commented_by.name);
             $('#modal-comment-reply-user-2').text(data.commented_by.name);
@@ -194,12 +211,19 @@ const submitReplyComment = async (comment_id, parent_comment_id_param) => {
         url: `http://127.0.0.1:5000/comments/${comment_id}/reply`,
         type: 'POST',
         contentType: 'application/json',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
         data: JSON.stringify({
             post_id: $('#post-id').val(),
             content: content,
             parent_comment_id: parent_comment_id_param
         }),
         success: function(data) {
+            if (data.code === 401){
+                openModalAuth();
+                return;
+            }
             console.log('Success:', data);
             $('#modal-comment-reply-input').val('');
             closeModal();

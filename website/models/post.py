@@ -53,7 +53,7 @@ def get_posts():
     except Exception as e:
         return str(e)
     
-def get_sorted_posts(post_id_start, limit):
+def get_sorted_posts(post_id_start, limit, user_id):
     try:
         # Fetch all posts after the post_id_start and decending order by timestamp
         all_posts = []
@@ -68,7 +68,7 @@ def get_sorted_posts(post_id_start, limit):
             all_posts.append(post_data)
 
         for post in all_posts:
-            if 'user_id' in post['liked_by']:
+            if user_id !=None and user_id in post['liked_by']:
                 post['liked_by_me'] = True
             else:
                 post['liked_by_me'] = False
@@ -77,11 +77,11 @@ def get_sorted_posts(post_id_start, limit):
     except Exception as e:
         return str(e)
     
-def get_post(post_id):
+def get_post(post_id, user_id):
     try:
         post = post_ref.document(post_id).get().to_dict()
         post['id'] = post_id
-        if 'user_id' in post['liked_by']:
+        if user_id != None and user_id in post['liked_by']:
             post['liked_by_me'] = True
         else:
             post['liked_by_me'] = False
@@ -89,9 +89,8 @@ def get_post(post_id):
     except Exception as e:
         return str(e)
 
-def like_post(post_id):
+def like_post(post_id, user_id):
     try:
-        user_id = 'user_id'
         post = db.collection('posts').document(post_id)
         # Add user ID to the list of users who liked the post
         if user_id not in post.get().to_dict()['liked_by']:

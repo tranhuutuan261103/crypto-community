@@ -10,7 +10,8 @@ const likePost = async (p_id) => {
         const response = await fetch('http://127.0.0.1:5000/post/like', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
             },
             body: JSON.stringify(params)
         });
@@ -27,7 +28,7 @@ const likePost = async (p_id) => {
                 $('#post-' + p_id + '__like--value').text(parseInt($('#post-' + p_id + '__like--value').text()) + 1);
             }
         } else {
-            console.log('Error');
+            openModalAuth();
         }
     } catch (error) {
         console.error('Error:', error);
@@ -109,11 +110,16 @@ const createPost = async () => {
         url: 'http://127.0.0.1:5000/post/create',
         type: 'POST',
         data: formData,
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
         contentType: false,
         processData: false,
         success: function(data){
             if (data === true){
                 window.location.href = '/post';
+            } else if (data.code === 401) { 
+                openModalAuth();
             } else {
                 $("#post-creation-btn").removeClass('post-creation-on-upload');
                 $("#post-creation-btn").text('Post');
