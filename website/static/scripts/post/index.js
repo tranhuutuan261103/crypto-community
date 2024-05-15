@@ -78,14 +78,28 @@ $(document).ready(() => {
 });
 
 const previewThumbnail = (input) => {
-    console.log("Preview Thumbnail");
     if (input.files && input.files[0]) {
         const reader = new FileReader();
         reader.onload = (e) => {
             $('#thumbnail-preview').attr('src', e.target.result);
+            $('#thumbnail-preview-extra').attr('src', e.target.result);
         }
         reader.readAsDataURL(input.files[0]);
     }
+}
+
+const removeThumbnail = () => {
+    $('#thumbnail').val('');
+    $('#thumbnail-preview').attr('src', 'https://www.polytechnique-insights.com/wp-content/uploads/2023/06/adobestock_577124018-1024x683.jpeg');
+    $('#thumbnail-preview-extra').attr('src', 'https://www.polytechnique-insights.com/wp-content/uploads/2023/06/adobestock_577124018-1024x683.jpeg');
+}
+
+const closeModalImagePreview = () => {
+    $('#modal-image-preview').css('display', 'none');
+}
+
+const openModalImagePreview = () => {
+    $('#modal-image-preview').css('display', 'flex');
 }
 
 const createPost = async () => {
