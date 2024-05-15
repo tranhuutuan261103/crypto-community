@@ -49,14 +49,9 @@ const cryptocurrency = async () => {
         }
         const data = await response.json();
         if (data !== null){
-            $('#trending-token').empty();
-            $('#trending-token').append(
-                `<div class="trending-token__header">
-                    <div class="trending-token__header--title">Trending Tokens</div>
-                </div>`
-            );
+            $('#trending-token-list').empty();
             data.forEach((token) => {
-                $('#trending-token').append(
+                $('#trending-token-list').append(
                     `<div class="trending-token__item">
                         <div class="trending-token__item--rank">${token.rank}</div>
                         <img src="https://s2.coinmarketcap.com/static/img/coins/64x64/${token.id}.png" alt="${token.name}" class="trending-token__item--image">
