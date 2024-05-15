@@ -1,4 +1,4 @@
-from flask import render_template, request, jsonify
+from flask import render_template, request, jsonify, session
 from website.models.user import register as registerUser, login as loginUser, get_user
 
 from website.controller.auth import bp
@@ -11,6 +11,8 @@ def register():
             password = request.form.get('password')
             name = "Some Name"
             user = registerUser(email, password, name)
+            # Add user to session
+            session['user'] = user
             return jsonify({
                 'message': 'User registered successfully',
                 'token': user.get('idToken'),
@@ -34,6 +36,8 @@ def login():
             email = request.form.get('email')
             password = request.form.get('password')
             user = loginUser(email, password)
+            # Add user to session
+            session['user'] = user
             return jsonify({
                 'message': 'User logged in successfully',
                 'token': user.get('idToken'),
@@ -49,6 +53,15 @@ def login():
             })
         
     return render_template('auth/login.html')
+
+@bp.route('/logout', methods=['GET', 'POST'])
+def logout():
+    session.pop('user', None)
+    print(session)
+    return jsonify({
+        'message': 'User logged out',
+        'status': '200'
+    })
 
 @bp.route('/info', methods=['GET', 'POST'])
 def info():

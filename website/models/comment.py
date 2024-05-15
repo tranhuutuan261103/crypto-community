@@ -4,7 +4,7 @@ from datetime import datetime
 
 comments_ref = db.collection('comments')
 
-def get_comments(post_id):
+def get_comments(post_id, user_id):
     try:
         # Fetch all comments for the post_id
         all_comments = []
@@ -14,7 +14,7 @@ def get_comments(post_id):
 
             if 'liked_by' not in comment.to_dict():
                 comment_data['liked_by'] = []
-            if 'user_id' in comment_data['liked_by']:
+            if user_id != None and user_id in comment_data['liked_by']:
                 comment_data['liked_by_me'] = True
             else:
                 comment_data['liked_by_me'] = False
