@@ -38,6 +38,7 @@ def create_app(test_config=None):
     from .controller.comments import bp as comments_bp
     from .controller.articles import bp as articles_bp
     from .controller.admin import bp as admin_bp
+    from .controller.account import bp as account_bp
     CORS(posts_bp)
 
     app.register_blueprint(hello, url_prefix='/')
@@ -46,4 +47,6 @@ def create_app(test_config=None):
     app.register_blueprint(comments_bp, url_prefix='/comments')
     app.register_blueprint(articles_bp, url_prefix='/articles')
     app.register_blueprint(admin_bp, url_prefix='/admin')
+    app.register_blueprint(account_bp, url_prefix='/account')
+    
     return app
