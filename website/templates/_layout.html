@@ -27,20 +27,32 @@
                 <i class="fa-brands fa-bitcoin logo"></i>
             </div>
             <ul class="sidebar__list">
+                {% if active == 'feed' %}
                 <li class="sidebar__item sidebar__item--active">
+                {% else %}
+                <li class="sidebar__item">
+                {% endif %}
                     <a href="/post">
                         <i class="fa-solid fa-rss"></i>
                         Feed
                     </a>
                 </li>
+                {% if active == 'articles' %}
+                <li class="sidebar__item sidebar__item--active">
+                {% else %}
                 <li class="sidebar__item">
+                {% endif %}
                     <a href="/articles">
                         <i class="fa-regular fa-file-lines"></i>
                         Articles
                     </a>
                 </li>
-                {% for category in categories %}
+                    {% for category in categories %}
+                    {% if active == category.title or article != undefine and category.title == article.type %}
+                    <li class="sidebar__item sidebar__item--active">
+                    {% else %}
                     <li class="sidebar__item">
+                    {% endif %}
                         <a href="/articles/category/{{category.title}}">
                             <i class="fa-solid {{category.icon}}"></i>
                             {{category.title}}

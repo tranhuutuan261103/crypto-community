@@ -12,7 +12,7 @@ def index():
         articles[category['title']] = [article for article in get_articles_by_type(category['title'])]
     articles_highlight = get_articles_by_highlight()
     articles_sorted_by_view = get_article_sorted_by_view()
-    return render_template('articles/index.html', articles=articles, categories=categories, articles_highlight=articles_highlight, articles_sorted_by_view=articles_sorted_by_view)
+    return render_template('articles/index.html', articles=articles, categories=categories, articles_highlight=articles_highlight, articles_sorted_by_view=articles_sorted_by_view, active='articles')
 
 @bp.route('/category/<string:category_name>')
 def category(category_name):
@@ -20,7 +20,7 @@ def category(category_name):
     articles = []
     articles = get_articles_by_type(category_name)
     articles_sorted_by_view = get_article_sorted_by_view_type(category_name)
-    return render_template('articles/category.html', articles=articles, category_name=category_name, categories=categories, articles_sorted_by_view=articles_sorted_by_view)
+    return render_template('articles/category.html', articles=articles, category_name=category_name, categories=categories, articles_sorted_by_view=articles_sorted_by_view, active=category_name)
 
 @bp.route('/<string:article_id>')
 def detail(article_id):

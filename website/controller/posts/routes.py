@@ -17,14 +17,14 @@ from website.controller.posts import bp
 def index(user_id=None):
     categories = get_categories()
     posts = get_sorted_posts("b9JzFIcDQtXurNFI8wyD", 10, user_id)
-    return render_template('post/index.html', posts=posts, categories=categories)
+    return render_template('post/index.html', posts=posts, categories=categories, active='feed')
 
 @bp.route('/<string:post_id>')
 @login_check
 def detail(post_id, user_id=None):
     categories = get_categories()
     post = get_post(post_id, user_id)
-    return render_template('post/detail.html', post=post, categories=categories)
+    return render_template('post/detail.html', post=post, categories=categories, active='feed')
 
 
 @bp.route('/like', methods=['POST'])

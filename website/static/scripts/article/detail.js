@@ -13,6 +13,7 @@ const up_view = async (article_id) => {
         if (!response.ok) {
             throw new Error("Server responded with an error!");
         }
+        console.log(response.data);
     } catch (error) {
         console.error("Error:", error);
     }
