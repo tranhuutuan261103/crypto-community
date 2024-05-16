@@ -8,12 +8,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static',filename='styles/reset.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static',filename='styles/post/index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/account/index.css') }}">
     <link rel="stylesheet" href="{{ url_for('static',filename='styles/auth/modal.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>{% block title %}Posts - Crypto Community{% endblock %}</title>
+    <title>{% block title %}Account - Crypto Community{% endblock %}</title>
 </head>
 
 <body
@@ -72,15 +72,13 @@
                     </div>
 
                     <div id="box-user" class="box-user">
-                        <a href="/account" class="box-user__header--link">
-                            <div class="box-user__header">
-                                <img class="box-user__avatar" src="{{ url_for('static',filename='images/user.png') }}" alt="user">
-                                <div class="box-user__info">
-                                    <div class="box-user__name" id="box-user__name"></div>
-                                    <div class="box-user__email" id="box-user__email"></div>
-                                </div>
+                        <div class="box-user__header">
+                            <img class="box-user__avatar" src="{{ url_for('static',filename='images/user.png') }}" alt="user">
+                            <div class="box-user__info">
+                                <div class="box-user__name" id="box-user__name"></div>
+                                <div class="box-user__email" id="box-user__email"></div>
                             </div>
-                        </a>
+                        </div>
                         <div class="separate"></div>
                         <div id="box-user__item-logout" class="box-user__item" onclick="logout()">
                             <i class="fa-solid fa-sign-out-alt"></i>
@@ -95,86 +93,28 @@
             </div>
 
             <div class="content-outer">
-                <div class="post-main">
-                    <div class="post-top">
-                        <div class="post-creation">
-                            <div class="post-creation__left">
-                                <img class="post-creation__avatar" src="{{ url_for('static',filename='images/user.png') }}"
-                                    alt="user">
-                            </div>
-                            <div class="post-creation__right">
-                                <textarea id="content" name="message" class="post-creation__message"
-                                    placeholder="How do you feel about the markets today? Share your ideas here!"></textarea>
-                                <div class="post-creation__bottom">
-                                    <div class="post-creation__thumbnail-btn__outer">
-                                        <label for="thumbnail" class="post-creation__thumbnail-btn">
-                                            <input type="file" id="thumbnail" name="thumbnail" class="post-creation__thumbnail"
-                                                accept="image/*" hidden onchange="previewThumbnail(this)">
-                                            <img id="thumbnail-preview" class="post-creation__thumbnail-preview" 
-                                                src="https://www.polytechnique-insights.com/wp-content/uploads/2023/06/adobestock_577124018-1024x683.jpeg" 
-                                                alt="thumbnail"
-                                            />                                      
-                                        </label>
-                                        <span class="post-creation__thumbnail-preview__close" onclick="removeThumbnail()">
-                                            <i class="fa-solid fa-circle-xmark"></i>
-                                        </span>
-                                        <span class="post-creation__thumbnail-preview__extra" onclick="openModalImagePreview()">
-                                            <i class="fa-solid fa-magnifying-glass-plus"></i>
-                                        </span>
-                                        <label for="thumbnail" class="post-creation__thumbnail-preview__upload">
-                                            <i class="fa-solid fa-upload"></i>
-                                        </label>
-                                    </div>
-                                    <button id="post-creation-btn" class="button" onclick="createPost()">Post</button>
+                <div class="profile-main">
+                    <div class="profile">
+                        <div class="profile-background">
+                            <input type="file" id="background" class="profile-background__input" accept="image/*" hidden>
+                            <img src="" alt="background">
+                            <label for="background" class="profile-background__label">
+                                <div class="profile-background--alt">
+                                    <i class="fa-solid fa-image"></i>
                                 </div>
-                            </div>
+                            </label>
                         </div>
-                        <div class="separate post-top__separate"></div>
                     </div>
-                    <div class="post-list">
-                        {% for post in posts %}
-                        <div class="post">
-                            <div class="post__link" onclick="post_detail('{{ post.id }}')">
-                                <div class="post__header">
-                                    <img class="post__avatar" src="{{ post.posted_by.avatar }}" alt="user">
-                                    <div class="post__info">
-                                        <div class="post__name
-                                        ">{{ post.posted_by.name }}</div>
-                                        <div class="post__time
-                                        ">{{ post.created_at }}</div>
-                                    </div>
-                                </div>
-                                <div class="post__content">{{ post.content }}</div>
-                                {% if post.thumbnail %}
-                                <img class="post__thumbnail" src="{{ post.thumbnail }}" alt="thumbnail">
-                                {% endif %}
-                            </div>
-                            <div class="post__footer">
-                                <div class="post__view">
-                                    <i class="fa-regular fa-eye"></i>
-                                    <span class="post-footer__span">{{ post.eye }}</span>
-                                </div>
-                                <div id="post-{{ post.id }}__like"
-                                    class="post__like {% if post.liked_by_me %}post__liked{% endif %}"
-                                    onclick="likePost('{{ post.id }}')">
-                                    <i class="fa-regular fa-heart"></i>
-                                    <span id="post-{{ post.id }}__like--value" class="post-footer__span">
-                                        {% if post.liked_by | length == 0 %}
-                                        0
-                                        {% else %}
-                                        {{ post.liked_by | length }}
-                                        {% endif %}
-                                    </span>
-                                </div>
-                                <div class="post__comment" onclick="post_detail('{{ post.id }}')">
-                                    <i class="fa-regular fa-comment"></i>
-                                    <span class="post-footer__span">0</span>
-                                </div>
-                            </div>
-                            <div class="separate post-top__separate"></div>
+                    <div class="profile-info">
+                        <div class="profile-info__avatar">
+                            <img src="{{ url_for('static',filename='images/user.png') }}" alt="avatar">
                         </div>
-                        {% endfor %}
+                        <div class="profile-info__content">
+                            <div class="profile-info__name" id="profile-info__name">Username</div>
+                            <div class="profile-info__email" id="profile-info__email">tranhuutuan26112003@gmail.com</div>
+                        </div>
                     </div>
+                    <div class="profile-info__bio" id="profile-info__bio">Nice to meet u</div>
                 </div>
                 <div class="right">
                     <div id="trending-token" class="trending-token">
@@ -245,18 +185,7 @@
         </div>
     </div>
 
-    <div class="modal-image-preview" id="modal-image-preview">
-        <img id="thumbnail-preview-extra" class="modal-image-preview__img" 
-            src="https://www.polytechnique-insights.com/wp-content/uploads/2023/06/adobestock_577124018-1024x683.jpeg" 
-            alt="thumbnail"
-        />
-        <div class="modal-image-preview__close" onclick="closeModalImagePreview()">
-            <i class="fa-solid fa-x"></i>
-        </div>
-    </div>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="{{ url_for('static',filename='scripts/post/index.js') }}"></script>
     <script src="{{ url_for('static',filename='scripts/auth/modal.js') }}"></script>
 </body>
 
