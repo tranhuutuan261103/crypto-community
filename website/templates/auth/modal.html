@@ -1,0 +1,56 @@
+<div id="modal-auth" class="modal-auth">
+    <div class="modal-auth__container">
+        <button
+            class="modal-auth__close-button"
+            onclick="closeModalAuth()"
+        >
+            <i class="fa-solid fa-times modal-auth__close"></i>
+        </button>
+
+        <div class="modal-auth__header">
+            <h2 class="modal-auth__title modal-auth__title--active" id="modal-auth__login-title"
+                onclick="toggleModalAuth('login')"
+            >Login</h2>
+            <h2 class="modal-auth__title" id="modal-auth__signup-title"
+                onclick="toggleModalAuth('signup')"
+            >Sign Up</h2>
+        </div>
+        <div class="modal-auth__content">
+            <div class="modal-auth--login">
+                
+            </div>
+            <div class="modal-auth__block">
+                <label for="email" class="modal-auth__label">Email</label>
+                <input
+                    type="text"
+                    class="modal-auth__input"
+                    id="email"
+                    name="email"
+                    placeholder="Email"
+                />
+            </div>
+            <div class="modal-auth__block">
+                <label for="password" class="modal-auth__label">Password</label>
+                <input
+                    type="password"
+                    class="modal-auth__input"
+                    id="password"
+                    name="password"
+                    placeholder="Password"
+                />
+            </div>
+            <div class="modal-auth__block modal-auth__fullname--hide" id="modal-auth__fullname">
+                <label for="fullname" class="modal-auth__label">Full name</label>
+                <input
+                    type="text"
+                    class="modal-auth__input"
+                    id="fullname"
+                    name="fullname"
+                    placeholder="Insert your name"
+                />
+            </div>
+
+            <button id="modal-auth-btn" class="button" onclick="login()">Login</button>
+        </div>
+    </div>
+</div>
