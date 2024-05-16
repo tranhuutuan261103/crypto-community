@@ -6,6 +6,10 @@
 <link rel="stylesheet" href="{{ url_for('static',filename='styles/post/detail.css') }}">
 {% endblock %}
 
+{% block onload %}
+loadComments('{{ post.id }}');
+{% endblock %}
+
 {% block content %}
 <div class="post-main">
     <div class="back-container">

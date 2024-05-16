@@ -6,6 +6,10 @@
 <link rel="stylesheet" href="{{ url_for('static',filename='styles/articles/detail.css') }}" />
 {% endblock %}
 
+{% block onload %}
+onLoadActions();
+{% endblock %}
+
 {% block content %}
 <div class="content__title">
     <h1 class="content__title-text">{{article.type}}</h1>
@@ -37,7 +41,6 @@
 <script>
     function onLoadActions() {
         up_view('{{article.id}}');
-        checkLogin()
     }
 </script>
 {% endblock %}

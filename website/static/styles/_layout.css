@@ -37,6 +37,52 @@ a {
     background-color: #ddd;
 }
 
+.limit-lines {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: var(--line-limit);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: wrap;
+}
+
+.read_more__btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 130px;
+    background-color: #444444;
+    border-radius: 999px;
+    padding: 5px 10px;
+    transition: background-color 0.3s ease;
+}
+
+.read_more__btn i {
+    font-size: 1.6rem;
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+.read_more__btn p {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+.read_more__btn:hover {
+    background-color: hsl(91, 100%, 50%);
+}
+
+.read_more__btn:hover i {
+    color: #333;
+}
+
+.read_more__btn:hover p {
+    color: #333;
+}
+
 /* End common */
 
 .container {
