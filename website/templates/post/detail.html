@@ -1,275 +1,87 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static',filename='styles/reset.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static',filename='styles/post/detail.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static',filename='styles/auth/modal.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>{% block title %}{{ post.content }}{% endblock %}</title>
-</head>
-<body
-    onload="loadComments('{{ post.id }}'); checkLogin();"
->
-    <div class="container">
-        <div class="sidebar">
-            <div class="sidebar__header">
-                <i class="fa-brands fa-bitcoin logo"></i>
-            </div>
-            <ul class="sidebar__list">
-                <li class="sidebar__item sidebar__item--active">
-                    <a href="/post">
-                        <i class="fa-solid fa-rss"></i>
-                        Feed
-                    </a>
-                </li>
-                <li class="sidebar__item">
-                    <a href="/articles">
-                        <i class="fa-regular fa-file-lines"></i>
-                        Articles
-                    </a>
-                </li>
-                {% for category in categories %}
-                    <li class="sidebar__item">
-                        <a href="/articles/category/{{category.title}}">
-                            <i class="fa-solid {{category.icon}}"></i>
-                            {{category.title}}
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
+{% extends './_layout.html' %}
 
-        <div class="main">
-            <div class="topbar">
-                <div class="search_bar">
-                    <i class="fa-solid fa-search search_bar__icon"></i>
-                    <input
-                        type="text"
-                        class="search_bar__input"
-                        placeholder="Search articles"
-                    />
-                    <i class="fa-solid fa-times search_bar__icon"></i>
-                </div>
+{% block title %}{{ post.content }}{% endblock %}
 
-                <div class="logo">
-                    <i class="fa-brands fa-bitcoin"></i>
-                    <h1 class="logo__title">Crypto Community</h1>
-                </div>
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static',filename='styles/post/detail.css') }}">
+{% endblock %}
 
-                <div class="user" onclick="openBoxUser()">
-                    <p class="user__welcome">Welcome <span id="user-welcome__username" class="user-welcome__username"></span> to Community</p>
-                    <div class="user_circle">
-                        <i class="fa-solid fa-user user__icon"></i>
-                    </div>
-
-                    <div id="box-user" class="box-user">
-                        <div class="box-user__header">
-                            <img class="box-user__avatar" src="{{ url_for('static',filename='images/user.png') }}" alt="user">
-                            <div class="box-user__info">
-                                <div class="box-user__name" id="box-user__name"></div>
-                                <div class="box-user__email" id="box-user__email"></div>
-                            </div>
-                        </div>
-                        <div class="separate"></div>
-                        <div id="box-user__item-logout" class="box-user__item" onclick="logout()">
-                            <i class="fa-solid fa-sign-out-alt"></i>
-                            <span>Logout</span>
-                        </div>
-                        <div id="box-user__item-login" class="box-user__item" onclick="openModalAuth()">
-                            <i class="fa-solid fa-arrow-right-to-bracket"></i>
-                            <span>Login</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="content-outer">
-                <div class="post-main">
-                    <div class="back-container">
-                        <a href="/post" class="back">
-                            <i class="fa-solid fa-arrow-left-long"></i>
-                        Post detail</a>
-                        <div class="separate post-top__separate"></div>
-                    </div>
-                    <div class="post">
-                        <input type="hidden" id="post-id" value="{{ post.id }}">
-                        <div class="post__header">
-                            {% if post.posted_by.avatar %}
-                                <img class="post__avatar" src="{{ post.posted_by.avatar }}" alt="avatar">
-                            {% else %}
-                                <img class="post__avatar" src="https://www.gravatar.com/avatar/" alt="avatar">
-                            {% endif %}
-                            <div class="post__info">
-                                <div class="post__name
+{% block content %}
+<div class="post-main">
+    <div class="back-container">
+        <a href="/post" class="back">
+            <i class="fa-solid fa-arrow-left-long"></i>
+            Post detail</a>
+        <div class="separate post-top__separate"></div>
+    </div>
+    <div class="post">
+        <input type="hidden" id="post-id" value="{{ post.id }}">
+        <div class="post__header">
+            {% if post.posted_by.avatar %}
+            <img class="post__avatar" src="{{ post.posted_by.avatar }}" alt="avatar">
+            {% else %}
+            <img class="post__avatar" src="https://www.gravatar.com/avatar/" alt="avatar">
+            {% endif %}
+            <div class="post__info">
+                <div class="post__name
                                 ">{{ post.posted_by.name }}</div>
-                                <div class="post__time
+                <div class="post__time
                                 ">{{ post.created_at }}</div>
-                            </div>
-                        </div>
-                        <div class="post__content">{{ post.content }}</div>
-                        {% if post.thumbnail %}
-                            <img class="post__thumbnail" src="{{ post.thumbnail }}" alt="thumbnail">
-                        {% endif %}
-                        <div class="post__footer">
-                            <div class="post__view">
-                                <i class="fa-regular fa-eye"></i>
-                                <span class="post-footer__span">{{ post.eye }}</span>
-                            </div>
-                            <div id="post-{{ post.id }}__like" class="post__like {% if post.liked_by_me %}post__liked{% endif %}" 
-                                onclick="likePost('{{ post.id }}')"
-                            >
-                                <i class="fa-regular fa-heart"></i>
-                                <span
-                                    id="post-{{ post.id }}__like--value"
-                                    class="post-footer__span"
-                                >
-                                    {% if post.liked_by | length == 0 %}
-                                        0
-                                    {% else %}
-                                        {{ post.liked_by | length }}
-                                    {% endif %}
-                                </span>
-                            </div>
-                            <div class="post__comment" onclick="document.getElementById('comment-input').focus()">
-                                <i class="fa-regular fa-comment"></i>
-                                <span class="post-footer__span">0</span>
-                            </div>
-                        </div>
-                        <div class="separate post-top__separate"></div>
-                    </div>
-                    <div class="comment-creation">
-                        <div class="comment-left">
-                            <img class="comment__avatar" src="{{ url_for('static',filename='images/user.png') }}" alt="avatar">
-                        </div>
-                        <div class="comment__input">
-                            <textarea id="comment-input" class="comment__input--text" placeholder="Write a comment..."></textarea>
-                            <button class="button comment__input--button" onclick="addComment('{{ post.id }}')">Comment</button>
-                        </div>
-                    </div>
-                    
-                    <div class="separate post-top__separate"></div>
-                    <div class="comment-container">
-                        <div class="comment__title">Comments</div>
-                        <div class="comment__list" id="comments"></div>
-                    </div>
-                </div>
-                <div class="right">
-                    <div id="trending-token" class="trending-token">
-                        <div class="trending-token__header">
-                            <div class="trending-token__header--title">Trending Tokens</div>
-                        </div>
-                        <div id="trending-token-list" class="trending-token__list"></div> 
-                    </div>
-                </div>
             </div>
+        </div>
+        <div class="post__content">{{ post.content }}</div>
+        {% if post.thumbnail %}
+        <img class="post__thumbnail" src="{{ post.thumbnail }}" alt="thumbnail">
+        {% endif %}
+        <div class="post__footer">
+            <div class="post__view">
+                <i class="fa-regular fa-eye"></i>
+                <span class="post-footer__span">{{ post.eye }}</span>
+            </div>
+            <div id="post-{{ post.id }}__like" class="post__like {% if post.liked_by_me %}post__liked{% endif %}"
+                onclick="likePost('{{ post.id }}')">
+                <i class="fa-regular fa-heart"></i>
+                <span id="post-{{ post.id }}__like--value" class="post-footer__span">
+                    {% if post.liked_by | length == 0 %}
+                    0
+                    {% else %}
+                    {{ post.liked_by | length }}
+                    {% endif %}
+                </span>
+            </div>
+            <div class="post__comment" onclick="document.getElementById('comment-input').focus()">
+                <i class="fa-regular fa-comment"></i>
+                <span class="post-footer__span">0</span>
+            </div>
+        </div>
+        <div class="separate post-top__separate"></div>
+    </div>
+    <div class="comment-creation">
+        <div class="comment-left">
+            <img class="comment__avatar" src="{{ url_for('static',filename='images/user.png') }}" alt="avatar">
+        </div>
+        <div class="comment__input">
+            <textarea id="comment-input" class="comment__input--text" placeholder="Write a comment..."></textarea>
+            <button class="button comment__input--button" onclick="addComment('{{ post.id }}')">Comment</button>
         </div>
     </div>
 
-    <div id="modal-comment" class="modal-comment">
-        <div class="modal-comment__container">
-            <div class="modal-comment__header">
-                <div class="modal-comment__title">Reply to <span id="modal-comment-reply-user">Anyone</span></div>
-                <button
-                    class="modal-comment__close-button"
-                    onclick="closeModal()"
-                >
-                    <i class="fa-solid fa-times modal-comment__close"></i>
-                </button>
-            </div>
-
-            <div class="comment__item">
-                <div class="comment-item__inner">
-                    <img src='' class="comment__avatar" id="modal-comment-reply-avatar" />
-                    <div style="position: relative;">
-                        <div class="comment__header">
-                            <div class="comment__user" id="modal-comment-reply-user-2"></div>
-                            <span class="comment__time" id="modal-comment-reply-time"></span>
-                        </div>
-                        <div class="comment__content"
-                            id="modal-comment-reply-content"
-                        ></div>
-                    </div>
-                </div>
-                <div id="comment-${comment.id}" class="comment__reply-list"></div>
-            </div>
-
-            <div class="modal-comment__creation">
-                <div class="modal-comment__left">
-                    <img class="comment__avatar" src="{{ url_for('static',filename='images/user.png') }}" alt="avatar">
-                </div>
-                <div class="comment__input">
-                    <textarea id="modal-comment-reply-input" class="modal-comment__input--text" placeholder="Write a comment..."></textarea>
-                    <button id="modal-comment-reply-btn" class="button modal-comment__input--button" onclick="submitReplyComment(null)">Comment</button>
-                </div>
-            </div>
-        </div>
+    <div class="separate post-top__separate"></div>
+    <div class="comment-container">
+        <div class="comment__title">Comments</div>
+        <div class="comment__list" id="comments"></div>
     </div>
-
-    <div id="modal-auth" class="modal-auth">
-        <div class="modal-auth__container">
-            <button
-                class="modal-auth__close-button"
-                onclick="closeModalAuth()"
-            >
-                <i class="fa-solid fa-times modal-auth__close"></i>
-            </button>
-
-            <div class="modal-auth__header">
-                <h2 class="modal-auth__title modal-auth__title--active" id="modal-auth__login-title"
-                    onclick="toggleModalAuth('login')"
-                >Login</h2>
-                <h2 class="modal-auth__title" id="modal-auth__signup-title"
-                    onclick="toggleModalAuth('signup')"
-                >Sign Up</h2>
-            </div>
-            <div class="modal-auth__content">
-                <div class="modal-auth--login">
-                    
-                </div>
-                <div class="modal-auth__block">
-                    <label for="email" class="modal-auth__label">Email</label>
-                    <input
-                        type="text"
-                        class="modal-auth__input"
-                        id="email"
-                        name="email"
-                        placeholder="Email"
-                    />
-                </div>
-                <div class="modal-auth__block">
-                    <label for="password" class="modal-auth__label">Password</label>
-                    <input
-                        type="password"
-                        class="modal-auth__input"
-                        id="password"
-                        name="password"
-                        placeholder="Password"
-                    />
-                </div>
-                <div class="modal-auth__block modal-auth__fullname--hide" id="modal-auth__fullname">
-                    <label for="fullname" class="modal-auth__label">Full name</label>
-                    <input
-                        type="text"
-                        class="modal-auth__input"
-                        id="fullname"
-                        name="fullname"
-                        placeholder="Insert your name"
-                    />
-                </div>
-
-                <button id="modal-auth-btn" class="button" onclick="login()">Login</button>
+</div>
+<div class="right">
+    <div id="trending-token" class="trending-token">
+        <div class="trending-token__header">
+            <div class="trending-token__header--title">Trending Tokens</div>
         </div>
+        <div id="trending-token-list" class="trending-token__list"></div>
     </div>
+</div>
+{% endblock %}
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="{{ url_for('static',filename='scripts/post/detail.js') }}"></script>
-    <script src="{{ url_for('static',filename='scripts/auth/modal.js') }}"></script>
-</body>
-</html>
+{% block scripts %}
+<script src="{{ url_for('static',filename='scripts/post/detail.js') }}"></script>
+{% endblock %}

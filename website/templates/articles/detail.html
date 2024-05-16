@@ -1,214 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
-            rel="stylesheet"
-        />
-        <link
-            rel="stylesheet"
-            href="{{ url_for('static',filename='styles/reset.css') }}"
-        />
-        <link
-            rel="stylesheet"
-            href="{{ url_for('static',filename='styles/articles/detail.css') }}"
-        />
-        <link rel="stylesheet" href="{{ url_for('static',filename='styles/auth/modal.css') }}">
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-            integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-            crossorigin="anonymous"
-            referrerpolicy="no-referrer"
-        />
-        
-        <title>
-            {% block title %}Articles - Crypto Community{% endblock %}
-        </title>
+{% extends './_layout.html' %}
 
-        
-    </head>
+{% block title %}Article - Crypto community{% endblock %}
 
-    <body onload="onLoadActions()">
-        <!-- Show list posts -->
-        <div class="container">
-            <div class="sidebar">
-                <div class="sidebar__header">
-                    <i class="fa-brands fa-bitcoin logo"></i>
-                </div>
-                <ul class="sidebar__list">
-                    <li class="sidebar__item">
-                        <a href="/post">
-                            <i class="fa-solid fa-rss"></i>
-                            Feed
-                        </a>
-                    </li>
-                    <li class="sidebar__item">
-                        <a href="/articles">
-                            <i class="fa-regular fa-file-lines"></i>
-                            Articles
-                        </a>
-                    </li>
-                    {% for category in categories %}
-                        {% if category.title == article.type %}
-                            <li class="sidebar__item sidebar__item--active">
-                                <a href="/articles/category/{{category.title}}">
-                                    <i class="fa-solid {{category.icon}}"></i>
-                                    {{category.title}}
-                                </a>
-                            </li>
-                        {% else %}
-                            <li class="sidebar__item">
-                                <a href="/articles/category/{{category.title}}">
-                                    <i class="fa-solid {{category.icon}}"></i>
-                                    {{category.title}}
-                                </a>
-                            </li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
-            </div>
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static',filename='styles/articles/detail.css') }}" />
+{% endblock %}
 
-            <div class="main">
-                <div class="topbar">
-                    <div class="search_bar">
-                        <i class="fa-solid fa-search search_bar__icon"></i>
-                        <input
-                            type="text"
-                            class="search_bar__input"
-                            placeholder="Search articles"
-                        />
-                        <i class="fa-solid fa-times search_bar__icon"></i>
-                    </div>
-
-                    <div class="logo">
-                        <i class="fa-brands fa-bitcoin"></i>
-                        <h1 class="logo__title">Crypto Community</h1>
-                    </div>
-
-                    <div class="user" onclick="openBoxUser()">
-                        <p class="user__welcome">Welcome <span id="user-welcome__username" class="user-welcome__username"></span> to Community</p>
-                        <div class="user_circle">
-                            <i class="fa-solid fa-user user__icon"></i>
-                        </div>
-    
-                        <div id="box-user" class="box-user">
-                            <div class="box-user__header">
-                                <img class="box-user__avatar" src="{{ url_for('static',filename='images/user.png') }}" alt="user">
-                                <div class="box-user__info">
-                                    <div class="box-user__name" id="box-user__name"></div>
-                                    <div class="box-user__email" id="box-user__email"></div>
-                                </div>
-                            </div>
-                            <div class="separate"></div>
-                            <div id="box-user__item-logout" class="box-user__item" onclick="logout()">
-                                <i class="fa-solid fa-sign-out-alt"></i>
-                                <span>Logout</span>
-                            </div>
-                            <div id="box-user__item-login" class="box-user__item" onclick="openModalAuth()">
-                                <i class="fa-solid fa-arrow-right-to-bracket"></i>
-                                <span>Login</span>
-                            </div>
-                        </div>
-                    </div>
-
-                
-                </div>
-
-                <div class="content">
-                    <div class="content__title">
-                        <h1 class="content__title-text">{{article.type}}</h1>
-                    </div>
-                    <!-- Articles -->
-                    <div class="main-content">   
-                        <div class="article">
-                            <h1 class="article__title">{{article.title}}</h1>
-                            <img src="{{article.thumbnailUrl}}" alt="thumbnail" class="article__thumbnail">
-                            <div class="article__content">  
-                                {{article.content | safe}}
-                            </div>
-                            <div class="article__footer">
-                                <div class="article__author">
-                                    <i class="fa-solid fa-user"></i>
-                                    <p class="article__author-name">{{article.author}}</p>
-                                </div>
-                                <div class="article__date">
-                                    <i class="fa-solid fa-calendar"></i>
-                                    <p class="article__date-text">{{article.created_at}}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
+{% block content %}
+<div class="content__title">
+    <h1 class="content__title-text">{{article.type}}</h1>
+</div>
+<!-- Articles -->
+<div class="main-content">
+    <div class="article">
+        <h1 class="article__title">{{article.title}}</h1>
+        <img src="{{article.thumbnailUrl}}" alt="thumbnail" class="article__thumbnail">
+        <div class="article__content">
+            {{article.content | safe}}
         </div>
-        <div id="modal-auth" class="modal-auth">
-            <div class="modal-auth__container">
-                <button
-                    class="modal-auth__close-button"
-                    onclick="closeModalAuth()"
-                >
-                    <i class="fa-solid fa-times modal-auth__close"></i>
-                </button>
-    
-                <div class="modal-auth__header">
-                    <h2 class="modal-auth__title modal-auth__title--active" id="modal-auth__login-title"
-                        onclick="toggleModalAuth('login')"
-                    >Login</h2>
-                    <h2 class="modal-auth__title" id="modal-auth__signup-title"
-                        onclick="toggleModalAuth('signup')"
-                    >Sign Up</h2>
-                </div>
-                <div class="modal-auth__content">
-                    <div class="modal-auth--login">
-                        
-                    </div>
-                    <div class="modal-auth__block">
-                        <label for="email" class="modal-auth__label">Email</label>
-                        <input
-                            type="text"
-                            class="modal-auth__input"
-                            id="email"
-                            name="email"
-                            placeholder="Email"
-                        />
-                    </div>
-                    <div class="modal-auth__block">
-                        <label for="password" class="modal-auth__label">Password</label>
-                        <input
-                            type="password"
-                            class="modal-auth__input"
-                            id="password"
-                            name="password"
-                            placeholder="Password"
-                        />
-                    </div>
-                    <div class="modal-auth__block modal-auth__fullname--hide" id="modal-auth__fullname">
-                        <label for="fullname" class="modal-auth__label">Full name</label>
-                        <input
-                            type="text"
-                            class="modal-auth__input"
-                            id="fullname"
-                            name="fullname"
-                            placeholder="Insert your name"
-                        />
-                    </div>
-    
-                    <button id="modal-auth-btn" class="button" onclick="login()">Login</button>
+        <div class="article__footer">
+            <div class="article__author">
+                <i class="fa-solid fa-user"></i>
+                <p class="article__author-name">{{article.author}}</p>
+            </div>
+            <div class="article__date">
+                <i class="fa-solid fa-calendar"></i>
+                <p class="article__date-text">{{article.created_at}}</p>
             </div>
         </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script src="{{ url_for('static',filename='scripts/article/detail.js') }}"></script>
-        <script src="{{ url_for('static',filename='scripts/auth/modal.js') }}"></script>
-        <script>
-            function onLoadActions() {
-                up_view('{{article.id}}');
-                checkLogin()
-            }
-        </script>
-    </body>
-</html>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static',filename='scripts/article/detail.js') }}"></script>
+<script>
+    function onLoadActions() {
+        up_view('{{article.id}}');
+        checkLogin()
+    }
+</script>
+{% endblock %}
