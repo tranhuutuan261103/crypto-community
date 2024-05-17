@@ -28,7 +28,7 @@ loadComments('{{ post.id }}');
             {% endif %}
             <div class="post__info">
                 <div class="post__name
-                                ">{{ post.posted_by.name }}</div>
+                                ">{{ post.posted_by.fullname }}</div>
                 <div class="post__time
                                 ">{{ post.created_at }}</div>
             </div>
@@ -82,6 +82,48 @@ loadComments('{{ post.id }}');
             <div class="trending-token__header--title">Trending Tokens</div>
         </div>
         <div id="trending-token-list" class="trending-token__list"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block modals %}
+<div id="modal-comment" class="modal-comment">
+    <div class="modal-comment__container">
+        <div class="modal-comment__header">
+            <div class="modal-comment__title">Reply to <span id="modal-comment-reply-user">Anyone</span></div>
+            <button
+                class="modal-comment__close-button"
+                onclick="closeModal()"
+            >
+                <i class="fa-solid fa-times modal-comment__close"></i>
+            </button>
+        </div>
+
+        <div class="comment__item">
+            <div class="comment-item__inner">
+                <img src='' class="comment__avatar" id="modal-comment-reply-avatar" />
+                <div style="position: relative;">
+                    <div class="comment__header">
+                        <div class="comment__user" id="modal-comment-reply-user-2"></div>
+                        <span class="comment__time" id="modal-comment-reply-time"></span>
+                    </div>
+                    <div class="comment__content"
+                        id="modal-comment-reply-content"
+                    ></div>
+                </div>
+            </div>
+            <div id="comment-${comment.id}" class="comment__reply-list"></div>
+        </div>
+
+        <div class="modal-comment__creation">
+            <div class="modal-comment__left">
+                <img class="comment__avatar" src="{{ url_for('static',filename='images/user.png') }}" alt="avatar">
+            </div>
+            <div class="comment__input">
+                <textarea id="modal-comment-reply-input" class="modal-comment__input--text" placeholder="Write a comment..."></textarea>
+                <button id="modal-comment-reply-btn" class="button modal-comment__input--button" onclick="submitReplyComment(null)">Comment</button>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

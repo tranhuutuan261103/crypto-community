@@ -3,6 +3,7 @@ from google.cloud import firestore
 from datetime import datetime
 
 comments_ref = db.collection('comments')
+users_ref = db.collection('users')
 
 def get_comments(post_id, user_id):
     try:
@@ -11,6 +12,11 @@ def get_comments(post_id, user_id):
         for comment in comments_ref.where('post_id', '==', post_id).stream():
             comment_data = comment.to_dict()
             comment_data['id'] = comment.id
+            comment_data['commented_by'] = comment_data['commented_by'].get().to_dict()
+            if 'replying_to' in comment_data and comment_data['replying_to'] != None:
+                comment_data['replying_to'] = comment_data['replying_to'].get().to_dict()
+            else:
+                comment_data['replying_to'] = None
 
             if 'liked_by' not in comment.to_dict():
                 comment_data['liked_by'] = []
@@ -31,6 +37,11 @@ def get_comment_by_id(comment_id):
         comment = comments_ref.document(comment_id)
         comment_data = comment.get().to_dict()
         comment_data['id'] = comment.id
+        comment_data['commented_by'] = comments_ref.document(comment_id).get().to_dict()['commented_by'].get().to_dict()
+        if 'replying_to' in comment_data and comment_data['replying_to'] != None:
+            comment_data['replying_to'] = comments_ref.document(comment_id).get().to_dict()['replying_to'].get().to_dict()
+        else:
+            comment_data['replying_to'] = None
 
         if 'liked_by' not in comment_data:
             comment_data['liked_by'] = []
@@ -54,11 +65,7 @@ def add_comment(post_id, user_id, parent_id, content):
         comments_ref.add({
             'parent_comment_id': parent_id,
             'post_id': post_id,
-            'commented_by': {
-                'user_id': user_id,
-                'name': 'User Name',
-                'avatar': 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200'
-            },
+            'commented_by': users_ref.document(user_id) if user_id else None,
             'content': content,
             'liked_by': [],
             'created_at': datetime.now()
@@ -68,22 +75,14 @@ def add_comment(post_id, user_id, parent_id, content):
         print(str(e))
         return False
     
-def reply_comment(post_id, user_id, parent_id, comment_reply_user_id, content):
+def reply_comment(post_id, user_id, reply_comment_id, parent_comment_id, content):
     try:
         # Add a new comment to the post_id
         comments_ref.add({
-            'parent_comment_id': parent_id,
-            'replying_to': {
-                'user_id': comment_reply_user_id,
-                'name': 'User Name',
-                'avatar': 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200'
-            },
+            'parent_comment_id': parent_comment_id,
+            'replying_to': comments_ref.document(reply_comment_id).get().to_dict()['commented_by'],
             'post_id': post_id,
-            'commented_by': {
-                'user_id': user_id,
-                'name': 'User Name',
-                'avatar': 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200'
-            },
+            'commented_by': users_ref.document(user_id) if user_id else None,
             'content': content,
             'liked_by': [],
             'created_at': datetime.now()
@@ -95,7 +94,6 @@ def reply_comment(post_id, user_id, parent_id, comment_reply_user_id, content):
     
 def like_comment(comment_id, user_id):
     try:
-        user_id = 'user_id'
         comment = comments_ref.document(comment_id)
         # Add user ID to the list of users who liked the post
         if user_id not in comment.get().to_dict()['liked_by']:
@@ -108,6 +106,13 @@ def like_comment(comment_id, user_id):
             comment_data['liked_by_me'] = True
         else:
             comment_data['liked_by_me'] = False
+
+        comment_data['commented_by'] = comments_ref.document(comment_id).get().to_dict()['commented_by'].get().to_dict()
+        if 'replying_to' in comment_data and comment_data['replying_to'] != None:
+            comment_data['replying_to'] = comments_ref.document(comment_id).get().to_dict()['replying_to'].get().to_dict()
+        else:
+            comment_data['replying_to'] = None
+
         return comment_data
     except Exception as e:
         return {'error': str(e)}

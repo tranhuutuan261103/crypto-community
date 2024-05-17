@@ -14,7 +14,7 @@ const loadComments = async (post_id) => {
                                 <img src='${comment.commented_by.avatar}' class="comment__avatar" />
                                 <div>
                                     <div class="comment__header">
-                                        <div class="comment__user">${comment.commented_by.name}</div>
+                                        <div class="comment__user">${comment.commented_by.fullname}</div>
                                         <span class="comment__time">${comment.created_at}</span>
                                     </div>
                                     <div class="comment__content">${comment.content}</div>
@@ -48,10 +48,10 @@ const loadComments = async (post_id) => {
                                 <img src='${comment.commented_by.avatar}' class="comment__avatar" />
                                 <div style="position: relative;">
                                     <div class="comment__header">
-                                        <div class="comment__user">${comment.commented_by.name}</div>
+                                        <div class="comment__user">${comment.commented_by.fullname}</div>
                                         <span class="comment__time">${comment.created_at}</span>
                                     </div>
-                                    ${comment.replying_to !== null ? `<span class="comment__reply-to">Replying to ${comment.replying_to.name}</span>` : ""}
+                                    ${comment.replying_to !== null ? `<span class="comment__reply-to">Replying to ${comment.replying_to.fullname}</span>` : ""}
                                     <div class="comment__content">${comment.content}</div>
                                 </div>
                             </div>
@@ -188,10 +188,10 @@ const replyComment = (comment_id, parent_comment_id) => {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
         },
         success: function(data) {
-            $('#modal-comment-reply-user').text(data.commented_by.name);
-            $('#modal-comment-reply-user-2').text(data.commented_by.name);
+            $('#modal-comment-reply-user').text(data.commented_by.fullname);
+            $('#modal-comment-reply-user-2').text(data.commented_by.fullname);
             $('#modal-comment-reply-avatar').attr('src', data.commented_by.avatar);
-            $('#modal-comment-reply-avatar').attr('alt', data.commented_by.name);
+            $('#modal-comment-reply-avatar').attr('alt', data.commented_by.fullname);
             $('#modal-comment-reply-content').text(data.content);
             $('#modal-comment-reply-time').text(data.created_at);
             $('#modal-comment-reply-btn').attr('onclick', `submitReplyComment('${comment_id}', '${parent_comment_id}')`);

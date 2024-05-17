@@ -51,20 +51,11 @@ def create():
         thumbnail = None
 
     post['liked_by'] = []
-
-    user_id = session['user']['localId']
-    name = session['user']['displayName']
-    avatar = session['user']['photoUrl'] if 'photoUrl' in session['user'] else ''
-    post['posted_by'] ={
-        'name': name if name != '' else 'Anonymous',
-        'avatar': avatar if avatar != '' else 'https://via.placeholder.com/150',
-        'user_id': user_id
-    }
     post['created_at'] = datetime.datetime.now()
     post['eye'] = 0
 
     try:
-        response = create_post(post, thumbnail)
+        response = create_post(post, thumbnail, session['user']['user_id'])
         print("response", response)
         return jsonify(response), 200  # Đảm bảo bạn trả về một phản hồi JSON
     except Exception as e:

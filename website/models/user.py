@@ -1,5 +1,8 @@
 from firebase_admin import auth
+from website.db_config.firebase import db
 from website.db_config.firebase_client import auth as authClient
+
+users_ref = db.collection('users')
 
 def register(email, password, name):
     try:
@@ -16,6 +19,7 @@ def register(email, password, name):
 def login(email, password):
     try:
         user = authClient.sign_in_with_email_and_password(email, password)
+        user['user_id'] = users_ref.where('account_id', '==', user['localId']).get()[0].id
         return user
     except Exception as e:
         print(e)
