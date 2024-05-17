@@ -21,22 +21,20 @@ def get_comment(comment_id):
 def create_comment():
     parent_id = request.json['parent_comment_id'] if 'parent_comment_id' in request.json else None
     post_id = request.json['post_id']
-    user_id = session['user']['localId']
+    user_id = session['user']['user_id']
     content = request.json['content']
     return jsonify(add_comment(post_id, user_id, parent_id, content))
 
 @bp.route('/<comment_id>/reply', methods=['POST'])
 @login_required
 def reply_comment_route(comment_id):
-    parent_id = request.json['parent_comment_id']
-    comment_reply_user_id = comment_id
+    parent_id = request.json['parent_comment_id'] if 'parent_comment_id' in request.json else None
     post_id = request.json['post_id']
-    user_id = session['user']['localId']
+    user_id = session['user']['user_id']
     content = request.json['content']
-    return jsonify(reply_comment(post_id, user_id, parent_id, comment_reply_user_id, content))
+    return jsonify(reply_comment(post_id, user_id, comment_id, parent_id, content))
 
 @bp.route('/<comment_id>/like', methods=['POST'])
 @login_required
 def like_comment_route(comment_id):
-    print(comment_id)
     return jsonify(like_comment(comment_id, session['user']['localId']))

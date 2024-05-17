@@ -4,12 +4,14 @@ import time as Time
 
 post_ref = db.collection('posts')
 
-def create_post(post, thumbnail):
+def create_post(post, thumbnail, user_id):
     try:
         if thumbnail is not None:
             thumbnail_saved = save_image(thumbnail)
             if thumbnail_saved is not None:
                 post['thumbnail'] = thumbnail_saved
+
+        post['posted_by'] = db.collection('users').document(user_id)
                 
         post_ref.add(post)
         return True
@@ -65,6 +67,7 @@ def get_sorted_posts(post_id_start, limit, user_id):
                 continue
             post_data = post.to_dict()
             post_data['id'] = post.id
+            post_data['posted_by'] = post.to_dict()['posted_by'].get().to_dict()
             all_posts.append(post_data)
 
         for post in all_posts:
@@ -81,6 +84,7 @@ def get_post(post_id, user_id):
     try:
         post = post_ref.document(post_id).get().to_dict()
         post['id'] = post_id
+        post['posted_by'] = post_ref.document(post_id).get().to_dict()['posted_by'].get().to_dict()
         if user_id != None and user_id in post['liked_by']:
             post['liked_by_me'] = True
         else:

@@ -117,6 +117,8 @@
 
     {% include './auth/modal.html' %}
 
+    {% block modals %}{% endblock %}
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="{{ url_for('static',filename='scripts/auth/modal.js') }}"></script>
     {% block scripts %}{% endblock %}
