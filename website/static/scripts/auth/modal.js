@@ -67,8 +67,8 @@ const login = () => {
                     alert('User not found');
                 else {
                     console.log(response);
-                    localStorage.setItem('token', response.token);
-                    localStorage.setItem('user_name', response.user_name);
+                    localStorage.setItem('avatar', response.avatar);
+                    localStorage.setItem('fullname', response.fullname);
                     localStorage.setItem('email', response.email);
                     checkLogin();
                     closeModalAuth();
@@ -87,22 +87,24 @@ const login = () => {
 const signup = () => {
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
+    const fullname = document.getElementById('fullname').value;
     if (email && password) {
         $.ajax({
             type: 'POST',
             url: 'http://127.0.0.1:5000/auth/signup',
             data: {
                 email: email,
-                password: password
+                password: password,
+                fullname: fullname
             },
             success: (response) => {
                 if (response.status === '409')
                     alert('User already exists');
                 else {
                     console.log(response);
-                    localStorage.setItem('token', response.token);
-                    localStorage.setItem('user_name', response.user_name);
+                    localStorage.setItem('fullname', response.fullname);
                     localStorage.setItem('email', response.email);
+                    localStorage.setItem('avatar', response.avatar);
                     checkLogin();
                     closeModalAuth();
                     document.getElementById('email').value = '';
@@ -116,27 +118,46 @@ const signup = () => {
 }
 
 const checkLogin = () => {
-    if (localStorage.getItem('token')) {
-        $('#user-welcome__username').text(localStorage.getItem('user_name'));
-        if (localStorage.getItem('user_name') === '') {
-            $('#box-user__name').text("No name");
-            $('#user-welcome__username').text("No name");
-        } else {
-            $('#box-user__name').text(localStorage.getItem('user_name'));
-            $('#user-welcome__username').text(localStorage.getItem('user_name'));
+    console.log('Checking login');
+    $.ajax({
+        type: 'GET',
+        url: 'http://127.0.0.1:5000/account/info',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        success: (response) => {
+            if (response.status === '200') {
+                console.log(response);
+                if (response.profile.fullname !== '') {
+                    $('#box-user__name').text(response.profile.fullname);
+                    $('#user-welcome__username').text(response.profile.fullname);
+                } else {
+                    $('#box-user__name').text('User');
+                    $('#user-welcome__username').text('User');
+                }
+                $('#box-user__email').text(response.profile.email);
+                $('#box-user__avatar').attr('src', response.profile.avatar);
+
+                $('#box-user__item-logout').css('display', 'flex');
+                $('#box-user__item-login').css('display', 'none');
+
+                $('#box-user__header--link').attr('href', '/account');
+                $('#box-user__header--link').removeAttr('onclick');
+                return true;
+            } else {
+                console.log('Not logged in');
+                $('#box-user__name').text("Guest");
+                $('#user-welcome__username').text("Guest");
+                $('#box-user__email').text("");
+                $('#box-user__avatar').attr('src', "./static/images/avatar.png");
+                $('#box-user__item-logout').css('display', 'none');
+                $('#box-user__item-login').css('display', 'flex');
+                $('#box-user__header--link').attr('href', '#');
+                $('#box-user__header--link').attr('onclick', 'openModalAuth()');
+                return false;
+            }
         }
-        $('#box-user__email').text(localStorage.getItem('email'));
-
-        $('#box-user__item-logout').css('display', 'flex');
-        $('#box-user__item-login').css('display', 'none');
-    } else {
-        $('#user-welcome__username').text('Guest');
-        $('#box-user__name').text('Guest');
-        $('#box-user__email').text('Guest');
-
-        $('#box-user__item-logout').css('display', 'none');
-        $('#box-user__item-login').css('display', 'flex');
-    }
+    });
 }
 
 const logout = () => {
@@ -148,11 +169,7 @@ const logout = () => {
         },
         success: (response) => {
             console.log(response);
-            localStorage.removeItem('token');
-            localStorage.removeItem('user_name');
-            localStorage.removeItem('email');
             checkLogin();
-            location.reload();
         }
     });
 }

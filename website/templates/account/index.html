@@ -21,14 +21,18 @@
     </div>
     <div class="profile-info">
         <div class="profile-info__avatar">
+            {% if profile.avatar != None %}
+            <img src="{{ profile.avatar }}" alt="avatar">
+            {% else %}
             <img src="{{ url_for('static',filename='images/user.png') }}" alt="avatar">
+            {% endif %}
         </div>
         <div class="profile-info__content">
-            <div class="profile-info__name" id="profile-info__name">Username</div>
-            <div class="profile-info__email" id="profile-info__email">tranhuutuan26112003@gmail.com</div>
+            <div class="profile-info__name" id="profile-info__name">{{ profile.fullname }}</div>
+            <div class="profile-info__email" id="profile-info__email">{{ profile.email }}</div>
         </div>
     </div>
-    <div class="profile-info__bio" id="profile-info__bio">Nice to meet u</div>
+    <div class="profile-info__bio" id="profile-info__bio">{{ profile.bio }}</div>
 </div>
 <div class="right">
     <div id="trending-token" class="trending-token">

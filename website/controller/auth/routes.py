@@ -1,5 +1,6 @@
 from flask import render_template, request, jsonify, session
 from website.models.user import register as registerUser, login as loginUser, get_user
+from website.models.account import get_profile, create_profile
 
 from website.controller.auth import bp
 
@@ -9,15 +10,19 @@ def register():
         try: 
             email = request.form.get('email')
             password = request.form.get('password')
-            name = "Some Name"
-            user = registerUser(email, password, name)
+            fullname = request.form.get('fullname')
+            user = registerUser(email, password, fullname)
             # Add user to session
             session['user'] = user
+
+            # Create user profile
+            create_profile(user.get('localId'), email, fullname)
+            user_info = get_profile(user.get('localId'))
             return jsonify({
                 'message': 'User registered successfully',
-                'token': user.get('idToken'),
-                'email': user.get('email'),
-                'user_name': user.get('displayName'),
+                'email': user_info['email'],
+                'fullname': user_info['fullname'],
+                'avatar': user_info['avatar'],
                 'status': '200'
             })
         except Exception as e:
@@ -38,11 +43,12 @@ def login():
             user = loginUser(email, password)
             # Add user to session
             session['user'] = user
+            user_info = get_profile(user.get('localId'))
             return jsonify({
                 'message': 'User logged in successfully',
-                'token': user.get('idToken'),
-                'email': user.get('email'),
-                'user_name': user.get('displayName'),
+                'email': user_info['email'],
+                'fullname': user_info['fullname'],
+                'avatar': user_info['avatar'],
                 'status': '200'
             })
         except Exception as e:
