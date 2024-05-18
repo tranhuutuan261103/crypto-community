@@ -55,11 +55,15 @@ def get_posts():
     except Exception as e:
         return str(e)
     
-def get_sorted_posts(post_id_start, limit, user_id):
+def get_sorted_posts(post_id_start, limit : int = 10, user_id: str = None, owner_id: str = None):
     try:
         # Fetch all posts after the post_id_start and decending order by timestamp
         all_posts = []
-        for post in post_ref.order_by('created_at', direction=firestore.Query.DESCENDING).limit(limit).stream():
+        if (owner_id != None):
+            post_ref = db.collection('posts').where('posted_by', '==', db.collection('users').document(owner_id)).order_by('created_at', direction=firestore.Query.DESCENDING).limit(limit)
+        else:
+            post_ref = db.collection('posts').order_by('created_at', direction=firestore.Query.DESCENDING).limit(limit)
+        for post in post_ref.stream():
             if 'liked_by' not in post.to_dict():
                 post.to_dict()['liked_by'] = []
                 print(post.to_dict())
@@ -71,7 +75,7 @@ def get_sorted_posts(post_id_start, limit, user_id):
             all_posts.append(post_data)
 
         for post in all_posts:
-            if user_id !=None and user_id in post['liked_by']:
+            if user_id != None and user_id in post['liked_by']:
                 post['liked_by_me'] = True
             else:
                 post['liked_by_me'] = False

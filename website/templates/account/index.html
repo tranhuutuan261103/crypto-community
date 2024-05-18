@@ -10,9 +10,13 @@
 <div class="profile-main">
     <div class="profile">
         <div class="profile-background">
-            <input type="file" id="background" class="profile-background__input" accept="image/*" hidden>
-            <img src="" alt="background">
-            <label for="background" class="profile-background__label">
+            <input type="file" id="profile-background" class="profile-background__input" accept="image/*" hidden onchange="updateBackground()">
+            {% if profile.background == None %}
+            <img src="" alt="background" id="profile-background-img">
+            {% else %}
+            <img src="{{ profile.background }}" alt="background" id="profile-background-img">
+            {% endif %}
+            <label for="profile-background" class="profile-background__label">
                 <div class="profile-background--alt">
                     <i class="fa-solid fa-image"></i>
                 </div>
@@ -31,8 +35,66 @@
             <div class="profile-info__name" id="profile-info__name">{{ profile.fullname }}</div>
             <div class="profile-info__email" id="profile-info__email">{{ profile.email }}</div>
         </div>
+
+        <div class="profile-info__edit">
+            <a href="./detail" class="profile-info__edit--btn">
+                <i class="fa-regular fa-pen-to-square"></i>
+                Edit Profile
+            </a>
+            <label for="profile-background" class="profile-info__edit--btn">
+                <i class="fa-solid fa-image"></i>
+                Edit Background
+            </label>
+        </div>
     </div>
     <div class="profile-info__bio" id="profile-info__bio">{{ profile.bio }}</div>
+
+    <div class="posts__header">
+        <div class="posts__header--title">Posts</div>
+    </div>
+    <div class="post-list">
+        {% for post in posts %}
+        <div class="post">
+            <div class="post__link" onclick="post_detail('{{ post.id }}')">
+                <div class="post__header">
+                    <img class="post__avatar" src="{{ post.posted_by.avatar }}" alt="user">
+                    <div class="post__info">
+                        <div class="post__name
+                        ">{{ post.posted_by.fullname }}</div>
+                        <div class="post__time
+                        ">{{ post.created_at }}</div>
+                    </div>
+                </div>
+                <div class="post__content">{{ post.content }}</div>
+                {% if post.thumbnail %}
+                <img class="post__thumbnail" src="{{ post.thumbnail }}" alt="thumbnail">
+                {% endif %}
+            </div>
+            <div class="post__footer">
+                <div class="post__view">
+                    <i class="fa-regular fa-eye"></i>
+                    <span class="post-footer__span">{{ post.eye }}</span>
+                </div>
+                <div id="post-{{ post.id }}__like" class="post__like {% if post.liked_by_me %}post__liked{% endif %}"
+                    onclick="likePost('{{ post.id }}')">
+                    <i class="fa-regular fa-heart"></i>
+                    <span id="post-{{ post.id }}__like--value" class="post-footer__span">
+                        {% if post.liked_by | length == 0 %}
+                        0
+                        {% else %}
+                        {{ post.liked_by | length }}
+                        {% endif %}
+                    </span>
+                </div>
+                <div class="post__comment" onclick="post_detail('{{ post.id }}')">
+                    <i class="fa-regular fa-comment"></i>
+                    <span class="post-footer__span">0</span>
+                </div>
+            </div>
+            <div class="separate post-top__separate"></div>
+        </div>
+        {% endfor %}
+    </div>
 </div>
 <div class="right">
     <div id="trending-token" class="trending-token">
@@ -45,5 +107,5 @@
 {% endblock %}
 
 {% block scripts %}
-<!-- <script src="{{ url_for('static',filename='scripts/account/index.js') }}"></script> -->
+<script src="{{ url_for('static',filename='scripts/account/index.js') }}"></script>
 {% endblock %}

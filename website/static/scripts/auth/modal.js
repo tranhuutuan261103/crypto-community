@@ -149,7 +149,7 @@ const checkLogin = () => {
                 $('#box-user__name').text("Guest");
                 $('#user-welcome__username').text("Guest");
                 $('#box-user__email').text("");
-                $('#box-user__avatar').attr('src', "./static/images/avatar.png");
+                $('#box-user__avatar').attr('src', "/static/images/user.png");
                 $('#box-user__item-logout').css('display', 'none');
                 $('#box-user__item-login').css('display', 'flex');
                 $('#box-user__header--link').attr('href', '#');
