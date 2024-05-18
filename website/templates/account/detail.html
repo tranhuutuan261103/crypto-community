@@ -1,0 +1,58 @@
+{% extends './_layout.html' %}
+
+{% block title %}Account - Crypto Community{% endblock %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static',filename='styles/account/detail.css') }}">
+{% endblock %}
+
+{% block onload %}
+checkBtnUpdate();
+{% endblock %}
+
+{% block content %}
+<div class="profile-main">
+    <div class="back-container">
+        <a href="/account" class="back">
+            <i class="fa-solid fa-arrow-left-long"></i>
+            Edit my profile</a>
+        <div class="separate post-top__separate"></div>
+    </div>
+    <div class="profile">
+        <h2 class="profile__title">About me</h2>
+        <div class="profile-form">
+            <div class="profile-form__group">
+                <span class="profile-form__label">Avatar</span>
+                <div class="profile-form__avatar">
+                    <img id="profile-avatar-img" src="{{ profile.avatar }}" alt="avatar">
+                    <input type="file" id="profile-avatar" class="profile-form__avatar--input" accept="image/*" hidden onchange="updateAvatar()">
+                    <label class="profile-form__avatar--btn button" for="profile-avatar">
+                        Edit
+                    </label>
+                </div>
+            </div>
+            <div class="profile-form__group">
+                <label for="profile-fullname" class="profile-form__label">Fullname</label>
+                <input type="text" id="profile-fullname-original" value="{{ profile.fullname }}" hidden>
+                <input type="text" id="profile-fullname" class="profile-form__input is-valid" value="{{ profile.fullname }}">
+            </div>
+            <div class="profile-form__group">
+                <label for="profile-email" class="profile-form__label">Email</label>
+                <input type="email" id="profile-email" class="profile-form__input" value="{{ profile.email }}" disabled>
+            </div>
+            <div class="profile-form__group">
+                <label for="profile-bio" class="profile-form__label">Bio</label>
+                <textarea id="profile-bio-original" hidden>{{ profile.bio }}</textarea>
+                <textarea id="profile-bio" class="profile-form__textarea is-valid">{{ profile.bio }}</textarea>
+            </div>
+            <div class="profile-form__group profile-form__group-btn">
+                <button class="profile-form__btn button" id="profile-btn-update" disabled onclick="updateProfile()">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static',filename='scripts/account/detail.js') }}"></script>
+{% endblock %}
