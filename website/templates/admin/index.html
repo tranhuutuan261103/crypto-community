@@ -1,100 +1,115 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
-            rel="stylesheet"
-        />
-        <link
-            rel="stylesheet"
-            href="{{ url_for('static',filename='styles/reset.css') }}"
-        />
-        <link
-            rel="stylesheet"
-            href="{{ url_for('static',filename='styles/admin/index.css') }}"
-        />
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-            integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-            crossorigin="anonymous"
-            referrerpolicy="no-referrer"
-        />
-        
-        <title>
-            {% block title %}Admin - Crypto Community{% endblock %}
-        </title>
-
-        
-    </head>
-
-    <body>
-        <!-- Show list posts -->
-        <div class="container">
-            <div class="sidebar">
-                <div class="sidebar__header">
-                    <i class="fa-brands fa-bitcoin logo"></i>
-                    <h1 class="sidebar__title">Admin</h1>
-                </div>
-                <ul class="sidebar__list">
-                    <li class="sidebar__item">
-                        <a href="">
-                            <i class="fa-solid fa-house"></i>
-                            Dashboard
-                        </a>
-                    </li>
-                    <li class="sidebar__item sidebar__item--active">
-                        <a href="">
-                            <i class="fa-regular fa-file-lines"></i>
-                            Articles
-                        </a>
-                    </li>
-                    <li class="sidebar__item">
-                        <a href="">
-                            <i class="fa-solid fa-users"></i>
-                            Users
-                        </a>
-                    </li>
-                </ul>
+{% extends "./admin/_layout.html" %} {% block title %}Admin Dashboard - Crypto
+Community{% endblock %} {% block styles %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static',filename='styles/admin/index.css') }}"
+/>
+{% endblock %} {% block content %}
+<div class="statistics">
+    <h2 class="statistics__title">Statistics</h2>
+    <div class="statistics__row">
+        <div class="statistics_item">
+            <div class="statistics_item__icon">
+                <i class="fa-solid fa-eye"></i>
             </div>
-
-            <div class="main">
-                <div class="topbar">
-                    <div class="search_bar">
-                        <i class="fa-solid fa-search search_bar__icon"></i>
-                        <input
-                            type="text"
-                            class="search_bar__input"
-                            placeholder="Search articles"
-                        />
-                        <i class="fa-solid fa-times search_bar__icon"></i>
-                    </div>
-
-                    <div class="logo">
-                        <i class="fa-brands fa-bitcoin"></i>
-                        <h1 class="logo__title">Crypto Community</h1>
-                    </div>
-
-                    <div class="user">
-                        <p class="user__welcome">Welcome to Community</p>
-                        <div class="user_circle">
-                            <i class="fa-solid fa-user user__icon"></i>
-                        </div>
-                    </div>
-
-                
-                </div>
-
-                <div class="content">
-                    
-                </div>
-                
+            <div class="statistics_item__content">
+                <p class="statistics_item__data">{{num_views}}</p>
+                <p class="statistics_item__title">Views</p>
+            </div>
         </div>
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    </body>
-</html>
+        <div class="statistics_item">
+            <div class="statistics_item__icon">
+                <i class="fa-solid fa-users"></i>
+            </div>
+            <div class="statistics_item__content">
+                <p class="statistics_item__data">{{num_users}}</p>
+                <p class="statistics_item__title">Users</p>
+            </div>
+        </div>
+        <div class="statistics_item">
+            <div class="statistics_item__icon">
+                <i class="fa-solid fa-newspaper"></i>
+            </div>
+            <div class="statistics_item__content">
+                <p class="statistics_item__data">{{num_articles}}</p>
+                <p class="statistics_item__title">Articles</p>
+            </div>
+        </div>
+        <div class="statistics_item">
+            <div class="statistics_item__icon">
+                <i class="fa-solid fa-list"></i>
+            </div>
+            <div class="statistics_item__content">
+                <p class="statistics_item__data">{{num_categories}}</p>
+                <p class="statistics_item__title">Categories</p>
+            </div>
+        </div>
+        <div class="statistics_item">
+            <div class="statistics_item__icon">
+                <i class="fa-solid fa-user-tie"></i>
+            </div>
+            <div class="statistics_item__content">
+                <p class="statistics_item__data">{{num_admins}}</p>
+                <p class="statistics_item__title">Admins</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="crawlData">
+    <h2 class="crawlData__title">Crawl Data</h2>
+    <div class="crawlData__row">
+        <table class="crawlData__table">
+            <tr class="crawlData__table-header">
+                <th class="crawlData__table-header-item">Category name</th>
+                <th class="crawlData__table-header-item">Total articles</th>
+                <th class="crawlData__table-header-item">Crawl</th>
+            </tr>
+            {% for category in categories %}
+            <tr class="crawlData__table-row">
+                <td class="crawlData__table-row-item" hidden>
+                    <i class="fa-solid {{category.icon}}"></i>
+                </td>
+                <td
+                    class="crawlData__table-row-item crawlData__table-row-item--url"
+                    hidden
+                >
+                    {{ category.crawlUrl }}
+                </td>
+                <td
+                    class="crawlData__table-row-item crawlData__table-row-item--name"
+                >
+                    {{ category.title }}
+                </td>
+                <td class="crawlData__table-row-item">
+                    {{ num_articles_by_category[category.title] }}
+                </td>
+                <td class="crawlData__table-row-item">
+                    <label class="custom-checkbox">
+                        <input type="checkbox" />
+                        <span class="checkmark"></span>
+                    </label>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <div class="crawl_btn">
+            <i
+                class="fa-solid fa-cloud-arrow-down"
+                onclick="openModalAuth()"
+            ></i>
+            <p class="crawl_btn__text">Crawl</p>
+        </div>
+    </div>
+</div>
+{% endblock %} {% block modalCrawl %}
+<div id="modal-auth" class="modal-auth">
+    <div class="modal-auth__container">
+        <button onclick="closeModalAuth()" id="btn-close">
+            <i class="fa-solid fa-times"></i>
+        </button>
+        <div class="modal-row"></div>
+    </div>
+</div>
+{% endblock %} {% block scripts %}
+<script src="{{ url_for('static',filename='scripts/admin/index.js') }}"></script>
+{% endblock %}

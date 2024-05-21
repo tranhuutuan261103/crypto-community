@@ -10,26 +10,12 @@
             rel="stylesheet"
         />
         <link
-            rel="shortcut icon"
-            href="{{ url_for('static',filename='/favicon.ico') }}"
-            type="image/x-icon"
-        />
-        <link
-            rel="icon"
-            href="{{ url_for('static',filename='/favicon.ico') }}"
-            type="image/x-icon"
-        />
-        <link
             rel="stylesheet"
             href="{{ url_for('static',filename='styles/reset.css') }}"
         />
         <link
             rel="stylesheet"
-            href="{{ url_for('static',filename='styles/_layout.css') }}"
-        />
-        <link
-            rel="stylesheet"
-            href="{{ url_for('static',filename='styles/auth/modal.css') }}"
+            href="{{ url_for('static',filename='styles/admin/layout.css') }}"
         />
         {% block styles %}{% endblock %}
         <link
@@ -39,58 +25,47 @@
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
         />
+
         <title>{% block title %}{% endblock %}</title>
     </head>
 
-    <body onload="checkLogin(); '{% block onload %}{% endblock %}'">
+    <body onload="checkLogin(); '{% block onload %}{% endblock %}'"">
         <!-- Show list posts -->
+        {% if user %}
         <div class="container">
             <div class="sidebar">
                 <div class="sidebar__header">
                     <i class="fa-brands fa-bitcoin logo"></i>
+                    <h1 class="sidebar__title">Admin</h1>
                 </div>
                 <ul class="sidebar__list">
-                    {% if active == 'feed' %}
-                    <li class="sidebar__item sidebar__item--active">
-                        {% else %}
-                    </li>
-
-                    <li class="sidebar__item">
-                        {% endif %}
-                        <a href="/post">
-                            <i class="fa-solid fa-rss"></i>
-                            Feed
+                    <li class="sidebar__item sidebar__item--index">
+                        <a href="/admin">
+                            <i class="fa-solid fa-house"></i>
+                            Dashboard
                         </a>
                     </li>
-                    {% if active == 'articles' %}
-                    <li class="sidebar__item sidebar__item--active">
-                        {% else %}
-                    </li>
-
-                    <li class="sidebar__item">
-                        {% endif %}
-                        <a href="/articles">
+                    <li class="sidebar__item sidebar__item--artilce">
+                        <a href="/admin/article">
                             <i class="fa-regular fa-file-lines"></i>
                             Articles
                         </a>
                     </li>
-                    {% for category in categories %} {% if active ==
-                    category.title or article != undefine and category.title ==
-                    article.type %}
-                    <li class="sidebar__item sidebar__item--active">
-                        {% else %}
-                    </li>
-
-                    <li class="sidebar__item">
-                        {% endif %}
-                        <a href="/articles/category/{{category.title}}">
-                            <i class="fa-solid {{category.icon}}"></i>
-                            {{category.title}}
+                    <li class="sidebar__item sidebar__item--category">
+                        <a href="/admin/category">
+                            <i class="fa-solid fa-list"></i>
+                            Categories
                         </a>
                     </li>
-                    {% endfor %}
+                    <li class="sidebar__item sidebar__item--user">
+                        <a href="">
+                            <i class="fa-solid fa-users"></i>
+                            Users
+                        </a>
+                    </li>
                 </ul>
             </div>
+
             <div class="main">
                 <div class="topbar">
                     <div class="search_bar">
@@ -110,42 +85,35 @@
 
                     <div class="user" onclick="openBoxUser()">
                         <p class="user__welcome">
-                            Welcome
+                            Welcome admin
                             <span
                                 id="user-welcome__username"
                                 class="user-welcome__username"
                             ></span>
-                            to Community
                         </p>
                         <div class="user_circle">
                             <i class="fa-solid fa-user user__icon"></i>
                         </div>
 
                         <div id="box-user" class="box-user">
-                            <a
-                                href="/account"
-                                class="box-user__header--link"
-                                id="box-user__header--link"
-                            >
-                                <div class="box-user__header">
-                                    <img
-                                        class="box-user__avatar"
-                                        id="box-user__avatar"
-                                        src="{{ url_for('static',filename='images/user.png') }}"
-                                        alt="user"
-                                    />
-                                    <div class="box-user__info">
-                                        <div
-                                            class="box-user__name"
-                                            id="box-user__name"
-                                        ></div>
-                                        <div
-                                            class="box-user__email"
-                                            id="box-user__email"
-                                        ></div>
-                                    </div>
+                            <div class="box-user__header">
+                                <img
+                                    class="box-user__avatar"
+                                    id="box-user__avatar"
+                                    src="{{ url_for('static',filename='images/user.png') }}"
+                                    alt="user"
+                                />
+                                <div class="box-user__info">
+                                    <div
+                                        class="box-user__name"
+                                        id="box-user__name"
+                                    ></div>
+                                    <div
+                                        class="box-user__email"
+                                        id="box-user__email"
+                                    ></div>
                                 </div>
-                            </a>
+                            </div>
                             <div class="separate"></div>
                             <div
                                 id="box-user__item-logout"
@@ -171,12 +139,18 @@
 
                 <div class="content">{% block content %}{% endblock %}</div>
             </div>
+            {% block modalCrawl %}{% endblock %}
         </div>
-
-        {% include './auth/modal.html' %} {% block modals %}{% endblock %}
-
+        {% else %}
+        <script>
+            window.location.href = "/admin/login";
+        </script>
+        {% endif %}
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script src="{{ url_for('static',filename='scripts/auth/modal.js') }}"></script>
+        <script src="{{ url_for('static',filename='scripts/admin/layout.js') }}"></script>
+        <script>
+            active_sidebar("{{active}}");
+        </script>
         {% block scripts %}{% endblock %}
     </body>
 </html>

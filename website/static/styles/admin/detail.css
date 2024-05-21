@@ -1,0 +1,374 @@
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    line-height: 1.5;
+    background-color: #101214;
+}
+
+/* Common */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.button {
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: none;
+    background-color: hsl(91, 100%, 50%);
+    color: #fff;
+    font-size: 1.6rem;
+    font-weight: 600;
+    outline: none;
+    cursor: pointer;
+}
+
+.separate {
+    width: 100%;
+    height: 1px;
+    background-color: #ddd;
+}
+
+.limit-lines {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: var(--line-limit);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: wrap;
+}
+
+.read_more__btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 130px;
+    background-color: #444444;
+    border-radius: 999px;
+    padding: 5px 10px;
+    transition: background-color 0.3s ease;
+}
+
+.read_more__btn i {
+    font-size: 1.6rem;
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+.read_more__btn p {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+.read_more__btn:hover {
+    background-color: hsl(91, 100%, 50%);
+}
+
+.read_more__btn:hover i {
+    color: #333;
+}
+
+.read_more__btn:hover p {
+    color: #333;
+}
+
+/* End common */
+
+.container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+/* Content */
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px 80px;
+}
+
+/* Title */
+
+.content__title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.content__title-text {
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: hsl(91, 100%, 50%);
+    position: relative;
+}
+
+.content__title-text::after {
+    position: absolute;
+    content: "";
+    display: block;
+    width: 150px;
+    height: 2px;
+    right: -160px;
+    bottom: 17px;
+    background-color: hsl(91, 100%, 50%);
+}
+
+/* Articles */
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.main-content__row {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.main-content__brief {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 70%;
+}
+
+.main-content__brief--title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.main-content__brief--text {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: hsl(91, 100%, 50%);
+    position: relative;
+}
+
+.main-content__brief--text::after {
+    position: absolute;
+    content: "";
+    display: block;
+    width: 150px;
+    height: 1px;
+    right: -160px;
+    bottom: 12px;
+    background-color: hsl(91, 100%, 50%);
+}
+
+.article-item {
+    display: flex;
+    flex-direction: row;
+    border-radius: 12px;
+    background-color: #1b1d1f;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height: 200px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.article-item:hover {
+    box-shadow: hsl(91, 100%, 50%) 0px 0px 10px 0px;
+}
+
+.article-item__thumbnail {
+    width: 40%;
+    height: 100%;
+    background-color: #ddd;
+}
+
+.article-item__thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.article-item:hover .article-item__thumbnail img {
+    transform: scale(1.05);
+}
+
+.article-item__content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+    width: 60%;
+    overflow-wrap: break-word;
+    background-color: #1b1d1f;
+}
+
+.article-item__title {
+    max-width: 100%;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.article-item__description {
+    max-width: 100%;
+    font-size: 1.6rem;
+    color: #adacac;
+}
+
+.main-content__right {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 30%;
+}
+
+.main-content__info {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+    height: 200px;
+    border-radius: 12px;
+    background-color: #191b1d;
+}
+
+.main-content__info--item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.4rem;
+    color: #adacac;
+    margin-left: 20px;
+}
+
+.main-content__info--item i {
+    font-size: 1.6rem;
+    color: #fff;
+}
+
+.main-content__info--item p {
+    font-size: 1.6rem;
+    color: #fff;
+}
+
+.article {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 40px 120px;
+    background-color: #1b1d1f;
+    border-radius: 12px;
+}
+
+.article__title {
+    font-size: 4rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.article__thumbnail {
+    width: 100%;
+    height: 450px;
+    border-radius: 4px;
+    background-color: #333333;
+}
+
+.article__content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-bottom: 20px;
+    color: #ddd;
+    font-size: 1.6rem;
+    color: #ddd;
+}
+
+.article__content h2 {
+    font-size: 2.6rem;
+    color: #fff;
+    font-weight: 600;
+    margin: 10px 0px 5px 0px;
+}
+
+.article__content h3 {
+    font-size: 2.4rem;
+    color: #fff;
+    font-weight: 600;
+    margin: 10px 0px 5px 0px;
+}
+
+.article__content p,
+li {
+    font-size: 1.6rem;
+    color: #ddd;
+}
+
+.article__content div {
+    font-size: 1.6rem;
+    color: #ddd;
+}
+
+.article__content strong {
+    color: #fff;
+    font-weight: 600;
+    font-size: 2rem;
+    margin: 10px 0px 5px 0px;
+}
+
+.article__content img {
+    width: 100%;
+    border-radius: 4px;
+}
+
+.article__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    padding: 30px 0 0 0;
+}
+
+.article__footer::before {
+    position: absolute;
+    top: 0;
+    content: "";
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: hsl(91, 100%, 50%);
+}
+
+.article__author {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.article__author i,
+p {
+    font-size: 1.6rem;
+    color: #fff;
+}
+
+.article__date {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.4rem;
+    color: #ddd;
+}
+
+.article__date i,
+p {
+    font-size: 1.6rem;
+    color: #fff;
+}

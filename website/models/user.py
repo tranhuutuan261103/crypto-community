@@ -20,6 +20,7 @@ def login(email, password):
     try:
         user = authClient.sign_in_with_email_and_password(email, password)
         user['user_id'] = users_ref.where('account_id', '==', user['localId']).get()[0].id
+        user['role'] = users_ref.where('account_id', '==', user['localId']).get()[0].to_dict()['role']
         return user
     except Exception as e:
         print(e)
@@ -29,5 +30,25 @@ def get_user(id_token):
     try:
         user = authClient.get_account_info(id_token)
         return user
+    except Exception as e:
+        return str(e)
+    
+def get_num_users():
+    try:
+        all_users = []
+        query = users_ref.where('role', '==', 'user')
+        for user in query.stream():
+            all_users.append(user)
+        return len(all_users)
+    except Exception as e:
+        return str(e)
+    
+def get_num_admins():
+    try:
+        all_admins = []
+        query = users_ref.where('role', '==', 'admin')
+        for user in query.stream():
+            all_admins.append(user)
+        return len(all_admins)
     except Exception as e:
         return str(e)

@@ -1,0 +1,86 @@
+{% extends "./admin/_layout.html" %} {% block title %}Admin Detail - Crypto
+Community{% endblock %} {% block styles %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static',filename='styles/admin/detail.css') }}"
+/>
+{% endblock %} {% block content %}
+<div class="content__title">
+    <h1 class="content__title-text">Article Preview</h1>
+</div>
+<!-- Articles -->
+<div class="main-content">
+    <div class="main-content__row">
+        <div class="main-content__brief">
+            <div class="main-content__brief--title">
+                <h2 class="main-content__brief--text">Brief</h2>
+            </div>
+            <div class="article-item">
+                <div class="article-item__thumbnail">
+                    <img src="{{ article.thumbnailUrl }}" alt="thumbnail" />
+                </div>
+                <div class="article-item__content">
+                    <h2
+                        class="article-item__title limit-lines"
+                        style="--line-limit: 2"
+                    >
+                        {{ article.title }}
+                    </h2>
+                    <p
+                        class="article-item__description limit-lines"
+                        style="--line-limit: 3"
+                    >
+                        {{ article.subDescription }}
+                    </p>
+                    <a class="read_more__btn" href="#">
+                        <i class="fa-solid fa-book-open"></i>
+                        <p>Read more</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="main-content__right">
+            <div class="main-content__brief--title">
+                <h2 class="main-content__brief--text">Information</h2>
+            </div>
+            <div class="main-content__info">
+                <div class="main-content__info--item">
+                    <i class="fa-solid fa-list"></i>
+                    <p>{{ article.type }}</p>
+                </div>
+                <div class="main-content__info--item">
+                    <i class="fa-solid fa-chart-simple"></i>
+                    <p>{{ article.views }}</p>
+                </div>
+                <div class="main-content__info--item">
+                    <i class="fa-solid fa-star"></i>
+                    <p>{{ article.highlight }}</p>
+                </div>
+                <div class="main-content__info--item">
+                    <i class="fa-solid fa-eye"></i>
+                    <p>{{ article.status }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="article">
+        <h1 class="article__title">{{article.title}}</h1>
+        <img
+            src="{{article.thumbnailUrl}}"
+            alt="thumbnail"
+            class="article__thumbnail"
+        />
+        <div class="article__content">{{article.content | safe}}</div>
+        <div class="article__footer">
+            <div class="article__author">
+                <i class="fa-solid fa-user"></i>
+                <p class="article__author-name">{{article.author}}</p>
+            </div>
+            <div class="article__date">
+                <i class="fa-solid fa-calendar"></i>
+                <p class="article__date-text">{{article.created_at}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Login Admin</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+            integrity="sha512-Fo3rlrQkTyR4Y2rSTZj+6E2b/VrS3K9c6DkB47Yq7lH+4/m7TqCbT/VNQX9T6p6e2k/sOXyS1L7k+4IGXKYzKw=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: Arial, sans-serif;
+                background: url("{{ url_for('static',filename='images/bg_login_admin.jpg') }}")
+                    no-repeat center center fixed;
+                background-size: cover;
+                color: #fff;
+                height: 100vh;
+            }
+            .background {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                background-color: rgba(0, 0, 0, 0.5);
+            }
+            .login-container {
+                background-color: rgba(34, 34, 34, 0.8);
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+                width: 300px;
+                transition: box-shadow 0.5s, transform 0.5s;
+            }
+            .login-container:hover {
+                box-shadow: 0 0 10px rgba(0, 255, 0, 1);
+                transform: scale(1.1);
+            }
+            .login-container h2 {
+                margin-bottom: 20px;
+                color: #0f0;
+                text-align: center;
+            }
+            .login-container label {
+                display: block;
+                margin-bottom: 10px;
+                color: #0f0;
+            }
+            .login-container input[type="text"],
+            .login-container input[type="password"] {
+                width: calc(100% - 20px);
+                padding: 10px;
+                margin-bottom: 20px;
+                border: none;
+                border-radius: 5px;
+                background-color: #333;
+                color: #fff;
+            }
+            .login-container input[type="submit"] {
+                width: 100%;
+                padding: 10px;
+                border: none;
+                border-radius: 5px;
+                background-color: #0f0;
+                color: #000;
+                font-weight: bold;
+                cursor: pointer;
+            }
+            .login-container input[type="submit"]:hover {
+                background-color: #0b0;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="background">
+            <div class="login-container">
+                <h2>Login Admin</h2>
+                <form action="/admin/login" method="post">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required />
+
+                    <label for="password">Password:</label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        required
+                    />
+
+                    <input type="submit" value="Login" />
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

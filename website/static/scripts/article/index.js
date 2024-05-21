@@ -2,7 +2,7 @@ function enableDragAndDrop(elementId) {
     var element = document.getElementById(elementId);
     var isDragging = false;
     var startX, startY, scrollLeft, scrollTop;
-    var scrollSpeed = 3;
+    var scrollSpeed = 1;
 
     element.addEventListener("mousedown", function (e) {
         isDragging = true;
