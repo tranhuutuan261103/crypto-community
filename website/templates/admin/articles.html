@@ -1,0 +1,119 @@
+{% extends "./admin/_layout.html" %} {% block title %}Admin Articles - Crypto
+Community{% endblock %} {% block styles %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static',filename='styles/admin/articles.css') }}"
+/>
+{% endblock %} {% block content %}
+<div class="content__title">
+    <h1 class="content__title-text">Article Management</h1>
+</div>
+<div class="content-item">
+    <div class="content-item__column">
+        <div class="filters">
+            <select id="filterCategory">
+                <option value="">All categories</option>
+                {% for category in categories %}
+                <option value="{{ category.id }}">{{ category.title }}</option>
+                {% endfor %}
+            </select>
+            <select id="filterHighlight">
+                <option value="">All highlight</option>
+                <option value="highlighted">Highlighted</option>
+                <option value="notHighlighted">Not Highlighted</option>
+            </select>
+            <select id="filterDisplay">
+                <option value="">All display</option>
+                <option value="displayed">Displayed</option>
+                <option value="notDisplayed">Not Displayed</option>
+            </select>
+            <button onclick="applyFilters()">Apply Filters</button>
+        </div>
+
+        <table class="content-item__table">
+            <tr class="content-item__table-header">
+                <th class="content-item__table-header-item">Title</th>
+                <th class="content-item__table-header-item">Author</th>
+                <th class="content-item__table-header-item">Category</th>
+                <th
+                    class="content-item__table-header-item content-item__table-header-item--group"
+                >
+                    <p>Views</p>
+                    <i class="fa-solid fa-sort"></i>
+                </th>
+                <th class="content-item__table-header-item">Created at</th>
+                <th class="content-item__table-header-item">Preview</th>
+                <th
+                    class="content-item__table-header-item content-item__table-header-item--group"
+                    onclick="filterHighLight(this)"
+                >
+                    <p>Highlight</p>
+                    <i class="fa-solid fa-sort"></i>
+                </th>
+                <th
+                    class="content-item__table-header-item content-item__table-header-item--group"
+                    onclick="filterDisplay(this)"
+                >
+                    <p>Display</p>
+                    <i class="fa-solid fa-sort"></i>
+                </th>
+                <th class="content-item__table-header-item">Delete</th>
+            </tr>
+            {% for article in articles %}
+            <tr class="content-item__table-row">
+                <td class="content-item__table-row-item">
+                    {{ article.title }}
+                </td>
+                <td class="content-item__table-row-item">
+                    {{ article.author }}
+                </td>
+                <td class="content-item__table-row-item">{{ article.type }}</td>
+                <td class="content-item__table-row-item">
+                    {{ article.views }}
+                </td>
+                <td class="content-item__table-row-item">
+                    {{ article.created_at }}
+                </td>
+                <td
+                    class="content-item__table-row-item"
+                    onclick="article_detail('{{article.id}}')"
+                >
+                    <i class="fa-solid fa-share-from-square"></i>
+                </td>
+                <td class="content-item__table-row-item">
+                    {% if article.highlight %}
+                    <i
+                        class="fa-solid fa-star highlight_icon"
+                        onclick="toggle_highlight(this, '{{article.id}}')"
+                    ></i>
+                    {% else %}
+                    <i
+                        class="fa-regular fa-star"
+                        onclick="toggle_highlight(this, '{{article.id}}')"
+                    ></i>
+                    {% endif %}
+                </td>
+                <td class="content-item__table-row-item">
+                    {% if article.status %}
+                    <i
+                        class="fa-solid fa-eye"
+                        onclick="toggle_status(this, '{{article.id}}')"
+                    ></i>
+                    {% else %}
+                    <i
+                        class="fa-solid fa-eye-slash"
+                        onclick="toggle_status(this, '{{article.id}}')"
+                    ></i>
+                    {% endif %}
+                </td>
+                <td class="content-item__table-row-item">
+                    <i class="fa-solid fa-trash"></i>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %} {% block scripts %}
+<script src="{{ url_for('static',filename='scripts/admin/articles.js') }}"></script>
+{% endblock %}

@@ -1,12 +1,10 @@
-{% extends "./_layout.html" %}
-
-{% block title %}Articles - Crypto Community{% endblock %}
-
-{% block styles %}
-<link rel="stylesheet" href="{{ url_for('static',filename='styles/articles/index.css') }}">
-{% endblock %}
-
-{% block content %}
+{% extends "./_layout.html" %} {% block title %}Articles - Crypto Community{%
+endblock %} {% block styles %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static',filename='styles/articles/index.css') }}"
+/>
+{% endblock %} {% block content %}
 <!-- Highlight -->
 <div class="highlight">
     <div class="highlight__title">
@@ -16,19 +14,36 @@
     <div class="highlight__content" id="highlightContent">
         {% for article in articles_highlight %}
         <div class="highlight__article">
-            <div class="highlight__article--thumbnail">
-                <img src="{{ article.thumbnailUrl}}" alt="thumbnail">
+            <div
+                class="highlight__article--thumbnail"
+                style="pointer-events: none; user-select: none"
+            >
+                <img
+                    src="{{ article.thumbnailUrl}}"
+                    alt="thumbnail"
+                    draggable="false"
+                />
             </div>
             <div class="highlight__article--content">
-                <h3 class="highlight__article--title limit-lines" style="--line-limit: 2;">{{article.title}}</h3>
-                <p class="highlight__article--description limit-lines" style="--line-limit: 3;">
-                    {{article.subDescription}}</p>
+                <h3
+                    class="highlight__article--title limit-lines"
+                    style="--line-limit: 2; user-select: none"
+                >
+                    {{article.title}}
+                </h3>
+                <p
+                    class="highlight__article--description limit-lines"
+                    style="--line-limit: 3; user-select: none"
+                >
+                    {{article.subDescription}}
+                </p>
                 <a class="read_more__btn" href="/articles/{{article.id}}">
                     <i class="fa-solid fa-book-open"></i>
                     <p>Read more</p>
                 </a>
             </div>
         </div>
+
         {% endfor %}
     </div>
 </div>
@@ -41,11 +56,20 @@
         <div class="category-container-item">
             <div class="category-container-item__header">
                 <div class="category-container-item__title">
-                    <i class="fa-solid {{ category.icon }} category-container-item__title--icon"></i>
-                    <h2 class="category-container-item__title--text">{{category.title}}</h2>
+                    <i
+                        class="fa-solid {{ category.icon }} category-container-item__title--icon"
+                    ></i>
+                    <h2 class="category-container-item__title--text">
+                        {{category.title}}
+                    </h2>
                 </div>
-                <a class="category-container-item__link" href="/articles/category/{{category.title}}">
-                    <i class="fa-solid fa-eye category-container-item__link--icon"></i>
+                <a
+                    class="category-container-item__link"
+                    href="/articles/category/{{category.title}}"
+                >
+                    <i
+                        class="fa-solid fa-eye category-container-item__link--icon"
+                    ></i>
                     <p class="category-container-item__link--text">View all</p>
                 </a>
             </div>
@@ -53,14 +77,25 @@
                 {% for article in articles[category['title']] %}
                 <div class="category-container-item__article">
                     <div class="category-container-item__article--thumbnail">
-                        <img src="{{ article.thumbnailUrl }}" alt="thumbnail">
+                        <img src="{{ article.thumbnailUrl }}" alt="thumbnail" />
                     </div>
                     <div class="category-container-item__article--info">
-                        <h3 class="category-container-item__article--title limit-lines" style="--line-limit: 2;">
-                            {{article.title}}</h3>
-                        <p class="category-container-item__article--description limit-lines" style="--line-limit: 3;">
-                            {{article.subDescription}}</p>
-                        <a class="read_more__btn" href="/articles/{{article.id}}">
+                        <h3
+                            class="category-container-item__article--title limit-lines"
+                            style="--line-limit: 2"
+                        >
+                            {{article.title}}
+                        </h3>
+                        <p
+                            class="category-container-item__article--description limit-lines"
+                            style="--line-limit: 3"
+                        >
+                            {{article.subDescription}}
+                        </p>
+                        <a
+                            class="read_more__btn"
+                            href="/articles/{{article.id}}"
+                        >
                             <i class="fa-solid fa-book-open"></i>
                             <p>Read more</p>
                         </a>
@@ -72,7 +107,6 @@
         {% endfor %}
     </div>
 
-
     <!-- Most read news -->
     <div class="most_read-container">
         <div class="most_read-header">
@@ -82,22 +116,27 @@
         {% for article in articles_sorted_by_view %}
         <div class="most_read-item" onclick="article_detail('{{article.id}}')">
             <div class="most_read-item__content">
-                <h4 class="most_read-item__title limit-lines" style="--line-limit: 3;">
+                <h4
+                    class="most_read-item__title limit-lines"
+                    style="--line-limit: 3"
+                >
                     {{ article.title }}
                 </h4>
-                <p class="most_read-item__description limit-lines" style="--line-limit: 3;">
+                <p
+                    class="most_read-item__description limit-lines"
+                    style="--line-limit: 3"
+                >
                     {{ article.subDescription }}
                 </p>
             </div>
-            <div class="most_read-item__overlay">
-                Read more
-            </div>
+            <div class="most_read-item__overlay">Read more</div>
         </div>
         {% endfor %}
     </div>
 </div>
-{% endblock %}
-
-{% block scripts %}
+{% endblock %} {% block scripts %}
 <script src="{{ url_for('static',filename='scripts/article/index.js') }}"></script>
+<script>
+    enableDragAndDrop("highlightContent");
+</script>
 {% endblock %}

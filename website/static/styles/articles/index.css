@@ -25,6 +25,17 @@ iframe {
 .highlight__title--icon {
     font-size: 2.4rem;
     color: hsl(91, 100%, 50%);
+    animation: blinking 1s infinite;
+}
+
+@keyframes blinking {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
 }
 
 .highlight__title--text {

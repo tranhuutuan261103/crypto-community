@@ -9,7 +9,7 @@ def index():
     categories = get_categories()
     articles = {}
     for category in categories:
-        articles[category['title']] = [article for article in get_articles_by_type(category['title'])]
+        articles[category['title']] = [article for article in get_articles_by_type(category['title'], 3)]
     articles_highlight = get_articles_by_highlight()
     articles_sorted_by_view = get_article_sorted_by_view()
     return render_template('articles/index.html', articles=articles, categories=categories, articles_highlight=articles_highlight, articles_sorted_by_view=articles_sorted_by_view, active='articles')

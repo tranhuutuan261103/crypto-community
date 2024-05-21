@@ -81,179 +81,6 @@ body {
     width: 100%;
     justify-content: space-between;
 }
-
-/* Sidebar */
-
-.sidebar {
-    width: 240px;
-    height: 100vh;
-    position: sticky;
-    top: 0;
-    background-color: #191b1d;
-}
-
-.sidebar__header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2px;
-    padding: 16px 0px;
-    font-size: 1.6rem;
-    font-weight: 600;
-    color: #333;
-}
-
-.sidebar__header i {
-    font-size: 5rem;
-    color: hsl(91, 100%, 50%);
-}
-
-.sidebar__title {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 20px 20px;
-    font-size: 2.4rem;
-    font-weight: 600;
-    color: #fff;
-    font-style: italic;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    font-size: 4.6rem;
-}
-
-.sidebar__list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.sidebar__item {
-    width: 100%;
-}
-
-.sidebar__item a {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 16px 20px;
-    max-width: 200px;
-    padding: 16px 20px;
-    color: #adacac;
-    font-size: 1.4rem;
-    font-weight: 600;
-    text-decoration: none;
-    border-left: 2px solid transparent;
-}
-
-.sidebar__item a:hover {
-    border-left: 2px solid hsl(91, 100%, 50%);
-}
-
-.sidebar__item--active a {
-    color: hsl(91, 100%, 50%);
-    background-color: #444444;
-    border-left: 2px solid hsl(91, 100%, 50%);
-}
-
-/* Main */
-
-.main {
-    display: flex;
-    flex-direction: column;
-    width: calc(100% - 240px);
-}
-
-/* Top bar */
-
-.topbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 80px;
-    position: sticky;
-    top: 0; /* Đặt khoảng cách từ phía trên của viewport đến topbar */
-    background: #101214; /* Nên đặt màu nền để đảm bảo topbar không trong suốt */
-    z-index: 1000; /* Đảm bảo topbar ở trên các phần tử khác */
-}
-
-.search_bar {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background-color: #191b1d;
-    border-radius: 999px;
-    padding-left: 20px;
-    padding-right: 20px;
-}
-
-.search_bar i {
-    font-size: 2rem;
-    color: #adacac;
-}
-
-.search_bar__input {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    font-size: 1.6rem;
-    font-weight: 500;
-    outline: none;
-    background-color: transparent;
-    color: #adacac;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.logo i {
-    font-size: 4.6rem;
-    color: hsl(91, 100%, 50%);
-}
-
-.logo__title {
-    font-size: 2.4rem;
-    font-weight: 600;
-    color: #fff;
-}
-
-.user {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    border: 1px solid #ddd;
-    padding: 5px 10px;
-    border-radius: 999px;
-}
-
-.user_circle {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: #ddd;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid hsl(91, 100%, 50%);
-}
-
-.user__icon {
-    font-size: 1.7rem;
-}
-
-.user__welcome {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #adacac;
-}
-
 /* Content */
 
 .content {
@@ -261,4 +88,335 @@ body {
     flex-direction: column;
     gap: 20px;
     padding: 20px 80px;
+}
+
+/* Statistics */
+
+.statistics {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    background-color: #191b1d;
+    border-radius: 12px;
+    padding: 35px 40px;
+}
+
+.statistics__title {
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.statistics__row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.statistics_item {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.statistics_item__icon i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 2.4rem;
+}
+
+.statistics_item__icon .fa-eye {
+    color: #c800ff;
+    background-color: rgba(200, 0, 255, 0.1);
+}
+
+.statistics_item__icon .fa-users {
+    color: #00b7ff;
+    background-color: rgba(0, 183, 255, 0.1);
+}
+
+.statistics_item__icon .fa-newspaper {
+    color: #ff2200;
+    background-color: rgba(255, 34, 0, 0.1);
+}
+
+.statistics_item__icon .fa-newspaper {
+    color: #ff2200;
+    background-color: rgba(255, 34, 0, 0.1);
+}
+
+.statistics_item__icon .fa-list {
+    color: #33ff00;
+    background-color: rgba(51, 255, 0, 0.1);
+}
+
+.statistics_item__icon .fa-user-tie {
+    color: #ffc800;
+    background-color: rgba(255, 200, 0, 0.1);
+}
+
+.statistics_item__content {
+    display: flex;
+    flex-direction: column;
+}
+
+.statistics_item__data {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.statistics_item__title {
+    font-size: 1.4rem;
+    color: #adacac;
+}
+
+/* Crawl data */
+.crawlData {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    background-color: #191b1d;
+    border-radius: 12px;
+    padding: 30px 40px;
+}
+
+.crawlData__title {
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.crawlData__row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.crawlData__table {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #444444;
+}
+
+.crawlData__table-header {
+    background-color: #444444;
+}
+
+.crawlData__table-header-item {
+    padding: 10px;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+}
+
+.crawlData__table-row {
+    background-color: #333333;
+    border: 1px solid #444444;
+}
+
+.crawlData__table-row .crawlData__table-row-item:last-child {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.crawlData__table-row-item {
+    padding: 10px;
+    font-size: 1.6rem;
+    color: #fff;
+    text-align: center;
+}
+
+/* Ẩn input checkbox mặc định */
+.crawlData__table-row-item .custom-checkbox input {
+    display: none;
+}
+
+/* Tạo hình dạng cho custom checkbox */
+.crawlData__table-row-item .custom-checkbox .checkmark {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: #444444;
+    border-radius: 3px;
+    border: 1px solid #33ff00;
+    cursor: pointer;
+    vertical-align: middle;
+    transition: background 0.3s, border-color 0.3s;
+}
+
+.crawlData__table-row-item .custom-checkbox input:checked + .checkmark {
+    background-color: hsl(91, 100%, 50%);
+    border-color: hsl(91, 100%, 50%);
+}
+
+/* Tạo dấu tích khi checkbox được chọn */
+.crawlData__table-row-item .custom-checkbox .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid #101214;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+
+/* Hiển thị dấu tích khi checkbox được chọn */
+.crawlData__table-row-item .custom-checkbox input:checked + .checkmark:after {
+    display: block;
+}
+
+/* Crawl Button */
+
+.crawl_btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 999px;
+    padding: 5px 10px;
+    transition: background-color 0.3s ease;
+}
+
+.crawl_btn i {
+    font-size: 10rem;
+    color: #fff;
+    transition: color 0.4s ease;
+}
+
+.crawl_btn i:hover {
+    color: hsl(91, 100%, 50%);
+}
+
+.crawl_btn__text {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+.modal-auth {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: -1;
+    opacity: 0;
+    transition: z-index 0.2s, opacity 0.2s;
+}
+
+.modal-auth--show {
+    z-index: 1001;
+    opacity: 1;
+}
+
+.modal-auth__container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    max-height: 100%;
+    padding: 24px;
+    background-color: transparent;
+    border-radius: 20px;
+    scale: 0;
+    transition: scale 0.2s;
+}
+
+.modal-auth--show .modal-auth__container {
+    scale: 1;
+}
+
+.modal-auth__container button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(51, 255, 0, 0.3);
+    border: none;
+    color: #fff;
+    font-size: 3rem;
+    cursor: pointer;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.modal-auth__container button:hover {
+    color: hsl(91, 100%, 50%);
+    transform: rotate(90deg);
+}
+
+.modal-row {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.crawl-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 12px;
+}
+
+.crawl-item i {
+    font-size: 5rem;
+    color: hsl(91, 100%, 50%);
+}
+
+.crawl-item__info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.crawl-item__name {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.crawl-item__data {
+    font-size: 1.4rem;
+    color: #adacac;
+}
+
+.crawl-item__data i {
+    font-size: 1.8rem;
+    color: hsl(91, 100%, 50%);
+}
+
+.crawl-item__data_duplicate {
+    font-size: 1.4rem;
+    color: #ff2200;
+}
+
+.crawl-item__data_unique {
+    font-size: 1.4rem;
+    color: #33ff00;
 }

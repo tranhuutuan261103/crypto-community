@@ -1,0 +1,59 @@
+{% extends "./admin/_layout.html" %} {% block title %}Admin Categories - Crypto
+Community{% endblock %} {% block styles %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static',filename='styles/admin/categories.css') }}"
+/>
+{% endblock %} {% block content %}
+<div class="content__title">
+    <h1 class="content__title-text">Category Management</h1>
+</div>
+<div class="content-item">
+    <div class="content-item__column">
+        <div class="content-item__row-header">
+            <i class="fa-solid fa-folder-plus"></i>
+        </div>
+        <table class="content-item__table">
+            <tr class="content-item__table-header">
+                <th class="content-item__table-header-item">Icon</th>
+                <th class="content-item__table-header-item">Category name</th>
+                <th class="content-item__table-header-item">Total articles</th>
+                <th class="content-item__table-header-item">Display</th>
+                <th class="content-item__table-header-item">Action</th>
+            </tr>
+            {% for category in categories %}
+            <tr class="content-item__table-row">
+                <td class="content-item__table-row-item">
+                    <i class="fa-solid {{category.icon}}"></i>
+                </td>
+                <td class="content-item__table-row-item">
+                    {{ category.title }}
+                </td>
+                <td class="content-item__table-row-item">
+                    {{ category.num_articles }}
+                </td>
+                <td class="content-item__table-row-item">
+                    {% if category.status %}
+                    <i
+                        class="fa-solid fa-eye"
+                        onclick="toggle_status(this, '{{category.id}}')"
+                    ></i>
+                    {% else %}
+                    <i
+                        class="fa-solid fa-eye-slash"
+                        onclick="toggle_status(this, '{{category.id}}')"
+                    ></i>
+                    {% endif %}
+                </td>
+                <td class="content-item__table-row-item">
+                    <i class="fa-solid fa-gear"></i>
+                    <i class="fa-solid fa-trash"></i>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %} {% block scripts %}
+<script src="{{ url_for('static',filename='scripts/admin/categories.js') }}"></script>
+{% endblock %}
